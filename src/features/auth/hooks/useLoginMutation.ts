@@ -3,13 +3,13 @@ import { AuthApi } from '../api/auth-api.ts';
 import type { LoginBodyType } from '../api/authTypes.ts';
 
 type LoginResponse = Awaited<ReturnType<typeof AuthApi.login>>;
-type LoginError = Error;
 
 export function useLoginMutation(
-  options?: UseMutationOptions<LoginResponse, LoginError, LoginBodyType>,
+  options?: UseMutationOptions<LoginResponse, Error, LoginBodyType>,
 ) {
-  return useMutation<LoginResponse, LoginError, LoginBodyType>({
+  return useMutation<LoginResponse, Error, LoginBodyType>({
     mutationFn: body => AuthApi.login(body),
     ...options,
+
   });
 }
