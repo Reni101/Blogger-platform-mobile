@@ -26,7 +26,7 @@ export const MainTabsNavigator = () => {
         component={TracksScreen}
         name={'tracks'}
         options={{
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size, }) => (
             <AudioLines color={color ?? '#666666'} size={size} />
           ),
           title: 'Tracks',

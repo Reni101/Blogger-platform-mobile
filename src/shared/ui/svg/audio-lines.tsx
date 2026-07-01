@@ -1,12 +1,12 @@
 import Svg, { Path } from 'react-native-svg';
 
-type AudioLinesProps = {
+type PropsType = {
   color?: string;
   size?: number;
   strokeWidth?: number;
 };
 
-export const AudioLines = (props: AudioLinesProps) => {
+export const AudioLines = (props: PropsType) => {
   const { color = '#000000', size = 24, strokeWidth = 2 } = props;
   return (
     <Svg fill="none" height={size} viewBox="0 0 24 24" width={size}>

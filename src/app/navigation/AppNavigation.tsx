@@ -25,7 +25,7 @@ export function AppNavigation() {
           component={LoginScreen}
           key={'login'}
           name={'login'}
-          options={{ title: 'Login' }}
+          options={{ title: 'Login', headerShown: false }}
         />
         <Stack.Screen
           component={MainTabsNavigator}

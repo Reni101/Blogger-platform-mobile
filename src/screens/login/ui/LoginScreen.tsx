@@ -1,38 +1,21 @@
-import { Pressable, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Text, View } from 'react-native';
 import { styles } from './LoginScreen.styles';
-import type { RootStackParamList } from '../../../app/navigation/AppNavigation';
-import { useLoginMutation } from '../../../features/auth';
-
-type LoginNavigation = NativeStackNavigationProp<RootStackParamList, 'login'>;
+import { LoginForm } from '../../../features/auth';
+import { Headset } from '../../../shared/ui/svg/headset-icon.tsx';
 
 export function LoginScreen() {
-  const navigation = useNavigation<LoginNavigation>();
-  const { mutate, isPending } = useLoginMutation({
-    onSuccess: () => {
-      navigation.replace('mainTabs');
-    },
-  });
-
   return (
     <View style={styles.container}>
-      <Pressable
-        disabled={isPending}
-        onPress={() => {
-          const body = {
-            login: 'maxim101',
-            password: 'renixx12',
-            rememberMe: true,
-          };
-          mutate(body);
-        }}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>
-          {isPending ? 'Loading...' : 'Go to app'}
+      <View style={styles.header}>
+        <View style={styles.iconBadge}>
+          <Headset color="#ffffff" size={34} strokeWidth={2} />
+        </View>
+        <Text style={styles.title}>
+          Music
+          <Text style={styles.titleAccent}>Fun</Text>
         </Text>
-      </Pressable>
+      </View>
+      <LoginForm />
     </View>
   );
 }
