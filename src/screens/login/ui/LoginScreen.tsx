@@ -1,21 +1,29 @@
 import { Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { styles } from './LoginScreen.styles';
 import { LoginForm } from '../../../features/auth';
-import { Headset } from '../../../shared/ui/svg/headset-icon.tsx';
+import { HeadsetIcon } from '../../../shared';
 
 export function LoginScreen() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.iconBadge}>
-          <Headset color="#ffffff" size={34} strokeWidth={2} />
+          <HeadsetIcon color="#ffffff" size={34} strokeWidth={2} />
         </View>
         <Text style={styles.title}>
-          Music
-          <Text style={styles.titleAccent}>Fun</Text>
+          Blogger
+          <Text style={styles.titleAccent}>Platform</Text>
         </Text>
       </View>
-      <LoginForm />
+      <LoginForm
+        onForgotPasswordPress={() =>
+          navigation.navigate('forgotPassword' as never)
+        }
+        onSignUpPress={() => navigation.navigate('register' as never)}
+      />
     </View>
   );
 }

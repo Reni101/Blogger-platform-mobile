@@ -1,22 +1,21 @@
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Pressable, Text, TextInput, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';
-import { useLoginMutation } from '../hooks/useLoginMutation.ts';
-import { type LoginFormValues, loginSchema } from '../model/loginSchema.ts';
-import { UserIcon } from '../../../shared/ui/svg/user-icon.tsx';
-import { PasswordIcon } from '../../../shared/ui/svg/password-icon.tsx';
+import { useLoginMutation } from '../../hooks/useLoginMutation.ts';
+import { type LoginFormValues, loginSchema } from '../../model/schemas/loginSchema.ts';
+import { PasswordIcon, UserIcon } from '../../../../shared';
 import { styles } from './LoginForm.styles.ts';
-
 import { LOGIN, PASSWORD } from '@env';
 
-type LoginNavigation = NativeStackNavigationProp<RootStackParamList, 'login'>;
+type LoginFormProps = {
+  onForgotPasswordPress: () => void;
+  onSignUpPress: () => void;
+};
 
-export const LoginForm = () => {
-  const navigation = useNavigation<LoginNavigation>();
-
+export const LoginForm = ({
+  onForgotPasswordPress,
+  onSignUpPress,
+}: LoginFormProps) => {
   const {
     control,
     handleSubmit,
@@ -25,15 +24,12 @@ export const LoginForm = () => {
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      login: LOGIN ?? '',
+      loginOrEmail: LOGIN ?? '',
       password: PASSWORD ?? '',
     },
   });
 
   const { mutate, isPending } = useLoginMutation({
-    onSuccess: () => {
-      navigation.replace('mainTabs');
-    },
     onError: () => {
       setError('password', {
         type: 'server',
@@ -43,7 +39,7 @@ export const LoginForm = () => {
   });
 
   const onSubmit = handleSubmit(values => {
-    mutate({ ...values, rememberMe: true });
+    mutate(values);
   });
 
   return (
@@ -51,7 +47,7 @@ export const LoginForm = () => {
       <View>
         <Controller
           control={control}
-          name="login"
+          name="loginOrEmail"
           render={({ field: { value, onChange, onBlur } }) => (
             <View style={styles.inputRow}>
               <UserIcon color="#1c1f2e" size={22} strokeWidth={2} />
@@ -69,8 +65,8 @@ export const LoginForm = () => {
           )}
         />
         <View style={styles.errorSlot}>
-          {errors.login ? (
-            <Text style={styles.errorText}>{errors.login.message}</Text>
+          {errors.loginOrEmail ? (
+            <Text style={styles.errorText}>{errors.loginOrEmail.message}</Text>
           ) : null}
         </View>
       </View>
@@ -103,7 +99,7 @@ export const LoginForm = () => {
         </View>
       </View>
 
-      <Pressable onPress={() => {}}>
+      <Pressable onPress={onForgotPasswordPress}>
         <Text style={styles.forgotPassword}>Forgot password</Text>
       </Pressable>
 
@@ -122,7 +118,7 @@ export const LoginForm = () => {
 
       <View style={styles.footer}>
         <Text style={styles.footerText}>Don't have an account ?</Text>
-        <Pressable onPress={() => {}}>
+        <Pressable onPress={onSignUpPress}>
           <Text style={styles.footerLink}>Sign Up</Text>
         </Pressable>
       </View>

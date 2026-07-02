@@ -1,13 +1,15 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from './AppNavigation';
 import { PlaylistsScreen, ProfileScreen, TracksScreen } from '../../screens';
-import { AudioLines, ListVideo, UserPen } from '../../shared/ui/svg';
+import { AudioLines, ListVideo, UserPen } from '../../shared/ui';
+import { LogoutBtn } from '../../features/auth';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 export const MainTabsNavigator = () => {
   return (
     <Tab.Navigator
+      initialRouteName="playlists"
       screenOptions={{
         headerTitleAlign: 'center',
       }}
@@ -26,7 +28,7 @@ export const MainTabsNavigator = () => {
         component={TracksScreen}
         name={'tracks'}
         options={{
-          tabBarIcon: ({ color, size, }) => (
+          tabBarIcon: ({ color, size }) => (
             <AudioLines color={color ?? '#666666'} size={size} />
           ),
           title: 'Tracks',
@@ -36,6 +38,7 @@ export const MainTabsNavigator = () => {
         component={ProfileScreen}
         name={'profile'}
         options={{
+          headerRight: () => <LogoutBtn />,
           tabBarIcon: ({ color, size }) => (
             <UserPen color={color ?? '#666666'} size={size} />
           ),
