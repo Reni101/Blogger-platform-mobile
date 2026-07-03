@@ -3,7 +3,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { useLoginMutation } from '../../hooks/useLoginMutation.ts';
 import { type LoginFormValues, loginSchema } from '../../model/schemas/loginSchema.ts';
-import { PasswordIcon, UserIcon } from '../../../../shared';
+import {
+  DomainExceptionCode,
+  getDomainException,
+  PasswordIcon,
+  UserIcon,
+} from '../../../../shared';
 import { styles } from './LoginForm.styles.ts';
 import { LOGIN, PASSWORD } from '@env';
 
@@ -30,10 +35,16 @@ export const LoginForm = ({
   });
 
   const { mutate, isPending } = useLoginMutation({
-    onError: () => {
+    onError: error => {
+      const domainException = getDomainException(error);
+
+      if (domainException?.code !== DomainExceptionCode.Unauthorized) {
+        return;
+      }
+
       setError('password', {
         type: 'server',
-        message: 'Incorrect login or password',
+        message: domainException.message ?? 'Invalid loginOrEmail or password',
       });
     },
   });
@@ -55,7 +66,7 @@ export const LoginForm = ({
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
-                placeholder="Username"
+                placeholder="Login or email"
                 placeholderTextColor="#9a9da6"
                 autoCapitalize="none"
                 autoCorrect={false}
