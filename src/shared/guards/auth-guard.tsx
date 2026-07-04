@@ -1,11 +1,6 @@
-import {
-  useCallback,
-  useEffect,
-  useState,
-  type PropsWithChildren,
-} from 'react';
+import { useCallback, useEffect, useState, type PropsWithChildren } from 'react';
 import { ActivityIndicator, Alert, View } from 'react-native';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../app/navigation/AppNavigation.tsx';
 import { AsyncStorage, onAuthSessionExpired } from '../lib';
@@ -15,14 +10,20 @@ type AuthGuardNavigation = NativeStackNavigationProp<
   'mainTabs'
 >;
 
+type AuthStatus = 'checking' | 'authenticated' | 'unauthenticated';
+
+const loaderStyle = {
+  alignItems: 'center' as const,
+  flex: 1,
+  justifyContent: 'center' as const,
+};
+
 export function AuthGuard({ children }: PropsWithChildren) {
   const navigation = useNavigation<AuthGuardNavigation>();
-  const [isChecking, setIsChecking] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [status, setStatus] = useState<AuthStatus>('checking');
 
   const redirectToLogin = useCallback(() => {
-    setIsAuthenticated(false);
-    setIsChecking(false);
+    setStatus('unauthenticated');
     navigation.replace('login');
     Alert.alert(
       'Session expired',
@@ -30,49 +31,40 @@ export function AuthGuard({ children }: PropsWithChildren) {
     );
   }, [navigation]);
 
-  const verifyAccessToken = useCallback(async () => {
-    const accessToken = await AsyncStorage.get<string>('accessToken');
+  useEffect(() => {
+    let isActive = true;
 
-    if (!accessToken) {
-      redirectToLogin();
-      return;
-    }
+    void (async () => {
+      const accessToken = await AsyncStorage.get<string>('accessToken');
 
-    setIsAuthenticated(true);
-    setIsChecking(false);
+      if (!isActive) {
+        return;
+      }
+
+      if (accessToken) {
+        setStatus('authenticated');
+      } else {
+        redirectToLogin();
+      }
+    })();
+
+    const unsubscribe = onAuthSessionExpired(redirectToLogin);
+
+    return () => {
+      isActive = false;
+      unsubscribe();
+    };
   }, [redirectToLogin]);
 
-  useEffect(() => {
-    void verifyAccessToken();
-  }, [verifyAccessToken]);
-
-  useEffect(() => {
-    return onAuthSessionExpired(() => {
-      redirectToLogin();
-    });
-  }, [redirectToLogin]);
-
-  useFocusEffect(
-    useCallback(() => {
-      void verifyAccessToken();
-    }, [verifyAccessToken]),
-  );
-
-  if (isChecking) {
+  if (status === 'checking') {
     return (
-      <View
-        style={{
-          alignItems: 'center',
-          flex: 1,
-          justifyContent: 'center',
-        }}
-      >
+      <View style={loaderStyle}>
         <ActivityIndicator size="large" />
       </View>
     );
   }
 
-  if (!isAuthenticated) {
+  if (status === 'unauthenticated') {
     return null;
   }
 
