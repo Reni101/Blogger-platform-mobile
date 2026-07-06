@@ -1,14 +1,22 @@
 import { type ReactElement } from 'react';
-import { type ListRenderItemInfo, View } from 'react-native';
-import { styles } from './ProfileWidget.styles';
+import {
+  type ListRenderItemInfo,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native';
 
 export type ProfileWidgetRowItem = {
   id: 'theme' | 'logout' | 'change-password' | 'change-email';
   actionElement: ReactElement;
 };
 
-export const renderProfileWidgetRow = ({
-  item,
-}: ListRenderItemInfo<ProfileWidgetRowItem>) => {
-  return <View style={styles.row}>{item.actionElement}</View>;
+type RowStyles = {
+  row: StyleProp<ViewStyle>;
 };
+
+export const renderProfileWidgetRow =
+  (styles: RowStyles) =>
+  ({ item }: ListRenderItemInfo<ProfileWidgetRowItem>) => {
+    return <View style={styles.row}>{item.actionElement}</View>;
+  };

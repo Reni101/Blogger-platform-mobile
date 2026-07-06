@@ -2,7 +2,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { PropsWithChildren, useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { initNetworkStatusListener } from '../../shared';
+import { initNetworkStatusListener, ThemeProvider } from '../../shared';
 import { queryClient } from './query-client';
 
 export function AppProviders({ children }: PropsWithChildren) {
@@ -12,7 +12,9 @@ export function AppProviders({ children }: PropsWithChildren) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>{children}</SafeAreaProvider>
+      <SafeAreaProvider>
+        <ThemeProvider>{children}</ThemeProvider>
+      </SafeAreaProvider>
     </QueryClientProvider>
   );
 }

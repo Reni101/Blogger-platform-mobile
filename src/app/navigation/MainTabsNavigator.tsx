@@ -1,12 +1,13 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from './AppNavigation';
 import { BlogsScreen, ProfileScreen, QuizGameScreen } from '../../screens';
-import { AuthGuard, GameIcon, HeadsetIcon, UserPen } from '../../shared';
+import { AuthGuard, GameIcon, HeadsetIcon, useAppTheme, UserPen } from '../../shared';
 import { useMeQuery } from '../../features/auth/hooks/useMeQuery.ts';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 export const MainTabsNavigator = () => {
+  const { colors } = useAppTheme();
   useMeQuery();
   return (
     <AuthGuard>
@@ -14,6 +15,19 @@ export const MainTabsNavigator = () => {
         initialRouteName="blogs"
         screenOptions={{
           headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: colors.tabBarBackground,
+          },
+          headerTintColor: colors.textPrimary,
+          sceneStyle: {
+            backgroundColor: colors.screenBackground,
+          },
+          tabBarActiveTintColor: colors.tabBarActive,
+          tabBarInactiveTintColor: colors.tabBarInactive,
+          tabBarStyle: {
+            backgroundColor: colors.tabBarBackground,
+            borderTopColor: colors.cardBorder,
+          },
         }}
       >
         <Tab.Screen
@@ -21,7 +35,7 @@ export const MainTabsNavigator = () => {
           name={'blogs'}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <HeadsetIcon color={color ?? '#666666'} size={size} />
+              <HeadsetIcon color={color ?? colors.tabBarInactive} size={size} />
             ),
             title: 'Blogs',
           }}
@@ -31,7 +45,7 @@ export const MainTabsNavigator = () => {
           name={'quizGame'}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <GameIcon color={color ?? '#666666'} size={size} />
+              <GameIcon color={color ?? colors.tabBarInactive} size={size} />
             ),
             title: 'Quiz game',
           }}
@@ -41,7 +55,7 @@ export const MainTabsNavigator = () => {
           name={'profile'}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <UserPen color={color ?? '#666666'} size={size} />
+              <UserPen color={color ?? colors.tabBarInactive} size={size} />
             ),
             title: 'Profile',
             headerShown: false,

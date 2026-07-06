@@ -1,17 +1,19 @@
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { styles } from './LoginScreen.styles';
+import { createLoginScreenStyles } from './LoginScreen.styles';
 import { LoginForm } from '../../../features/auth';
-import { HeadsetIcon } from '../../../shared';
+import { HeadsetIcon, useAppTheme, useThemedStyles } from '../../../shared';
 
 export function LoginScreen() {
   const navigation = useNavigation();
+  const { colors } = useAppTheme();
+  const styles = useThemedStyles(createLoginScreenStyles);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.iconBadge}>
-          <HeadsetIcon color="#ffffff" size={34} strokeWidth={2} />
+          <HeadsetIcon color={colors.iconOnAccent} size={34} strokeWidth={2} />
         </View>
         <Text style={styles.title}>
           Blogger

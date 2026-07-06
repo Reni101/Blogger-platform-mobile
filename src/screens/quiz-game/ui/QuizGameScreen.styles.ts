@@ -1,13 +1,17 @@
 import { StyleSheet } from 'react-native';
+import { type AppThemeColors } from '../../../shared';
 
-export const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-});
+export const createQuizGameScreenStyles = (colors: AppThemeColors) =>
+  StyleSheet.create({
+    container: {
+      alignItems: 'center',
+      backgroundColor: colors.screenBackground,
+      flex: 1,
+      justifyContent: 'center',
+    },
+    title: {
+      color: colors.textPrimary,
+      fontSize: 20,
+      fontWeight: '600',
+    },
+  });

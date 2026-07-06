@@ -1,14 +1,12 @@
 import { Pressable, Text, View } from 'react-native';
 import { useLogoutMutation } from '../../hooks/useLogoutMutation.ts';
-import { LogoutIcon } from '../../../../shared';
-import { styles } from './Logout.styles';
+import { LogoutIcon, useAppTheme, useThemedStyles } from '../../../../shared';
+import { createLogoutStyles } from './Logout.styles';
 
-type LogoutBtnProps = {
-  color?: string;
-};
-
-export const Logout = ({ color = '#cb3a31' }: LogoutBtnProps) => {
+export const Logout = () => {
   const { mutate, isPending } = useLogoutMutation();
+  const { colors } = useAppTheme();
+  const styles = useThemedStyles(createLogoutStyles);
 
   const handlePress = () => {
     mutate();
@@ -27,7 +25,7 @@ export const Logout = ({ color = '#cb3a31' }: LogoutBtnProps) => {
           pressed || isPending ? styles.iconButtonPressed : null,
         ]}
       >
-        <LogoutIcon color={color} size={20} />
+        <LogoutIcon color={colors.danger} size={20} />
       </Pressable>
     </View>
   );

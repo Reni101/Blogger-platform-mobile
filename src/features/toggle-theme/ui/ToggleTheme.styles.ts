@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { type AppThemeColors } from '../../../../shared';
 
-export const createLogoutStyles = (colors: AppThemeColors) =>
+export const createToggleThemeStyles = (colors: AppThemeColors) =>
   StyleSheet.create({
     container: {
       alignItems: 'center',
@@ -11,14 +11,9 @@ export const createLogoutStyles = (colors: AppThemeColors) =>
       justifyContent: 'space-between',
     },
     label: {
-      color: colors.danger,
+      color: colors.textPrimary,
+      flex: 1,
       fontSize: 16,
       fontWeight: '600',
-    },
-    iconButton: {
-      padding: 4,
-    },
-    iconButtonPressed: {
-      opacity: 0.65,
     },
   });

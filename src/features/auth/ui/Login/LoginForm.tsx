@@ -7,9 +7,11 @@ import {
   DomainExceptionCode,
   getDomainException,
   PasswordIcon,
+  useAppTheme,
+  useThemedStyles,
   UserIcon,
 } from '../../../../shared';
-import { styles } from './LoginForm.styles.ts';
+import { createLoginFormStyles } from './LoginForm.styles.ts';
 import { LOGIN, PASSWORD } from '@env';
 
 type LoginFormProps = {
@@ -21,6 +23,8 @@ export const LoginForm = ({
   onForgotPasswordPress,
   onSignUpPress,
 }: LoginFormProps) => {
+  const { colors } = useAppTheme();
+  const styles = useThemedStyles(createLoginFormStyles);
   const {
     control,
     handleSubmit,
@@ -61,13 +65,13 @@ export const LoginForm = ({
           name="loginOrEmail"
           render={({ field: { value, onChange, onBlur } }) => (
             <View style={styles.inputRow}>
-              <UserIcon color="#1c1f2e" size={22} strokeWidth={2} />
+              <UserIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
               <TextInput
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Login or email"
-                placeholderTextColor="#9a9da6"
+                placeholderTextColor={colors.textMuted}
                 autoCapitalize="none"
                 autoCorrect={false}
                 style={styles.input}
@@ -88,13 +92,13 @@ export const LoginForm = ({
           name="password"
           render={({ field: { value, onChange, onBlur } }) => (
             <View style={styles.inputRow}>
-              <PasswordIcon color="#1c1f2e" size={22} strokeWidth={2} />
+              <PasswordIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
               <TextInput
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Password"
-                placeholderTextColor="#9a9da6"
+                placeholderTextColor={colors.textMuted}
                 secureTextEntry
                 autoCapitalize="none"
                 autoCorrect={false}

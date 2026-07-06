@@ -10,3 +10,4 @@ export {
   onAuthSessionExpired,
   notifyAuthSessionExpired,
 } from './auth-session.ts';
+export { ThemeProvider, useAppTheme, useThemedStyles } from './theme.tsx';

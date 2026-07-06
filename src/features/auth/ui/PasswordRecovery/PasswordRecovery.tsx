@@ -10,8 +10,13 @@ import {
 } from '../../model/schemas/passwordRecoverySchema.ts';
 import { usePasswordRecoveryMutation } from '../../hooks/usePasswordRecoveryMutation.ts';
 import { useNewPasswordMutation } from '../../hooks/useNewPasswordMutation.ts';
-import { PasswordIcon, getDomainException } from '../../../../shared';
-import { styles } from './PasswordRecovery.styles.ts';
+import {
+  PasswordIcon,
+  getDomainException,
+  useAppTheme,
+  useThemedStyles,
+} from '../../../../shared';
+import { createPasswordRecoveryStyles } from './PasswordRecovery.styles.ts';
 
 type PasswordRecoveryProps = {
   onSignInPress: () => void;
@@ -34,6 +39,8 @@ function isNewPasswordField(field: string): field is keyof NewPasswordFormValues
 }
 
 export function PasswordRecovery({ onSignInPress }: PasswordRecoveryProps) {
+  const { colors } = useAppTheme();
+  const styles = useThemedStyles(createPasswordRecoveryStyles);
   const [isRecoveryStepVisible, setIsRecoveryStepVisible] = useState(false);
 
   const {
@@ -163,7 +170,7 @@ export function PasswordRecovery({ onSignInPress }: PasswordRecoveryProps) {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Email"
-                placeholderTextColor="#9a9da6"
+                placeholderTextColor={colors.textMuted}
                 autoCapitalize="none"
                 autoCorrect={false}
                 keyboardType="email-address"
@@ -217,7 +224,7 @@ export function PasswordRecovery({ onSignInPress }: PasswordRecoveryProps) {
                   onChangeText={onChange}
                   onBlur={onBlur}
                   placeholder="Код восстановления"
-                  placeholderTextColor="#9a9da6"
+                  placeholderTextColor={colors.textMuted}
                   autoCapitalize="none"
                   autoCorrect={false}
                   style={styles.input}
@@ -242,13 +249,13 @@ export function PasswordRecovery({ onSignInPress }: PasswordRecoveryProps) {
             name="newPassword"
             render={({ field: { value, onChange, onBlur } }) => (
               <View style={styles.inputRow}>
-                <PasswordIcon color="#1c1f2e" size={22} strokeWidth={2} />
+                <PasswordIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
                 <TextInput
                   value={value}
                   onChangeText={onChange}
                   onBlur={onBlur}
                   placeholder="Новый пароль"
-                  placeholderTextColor="#9a9da6"
+                  placeholderTextColor={colors.textMuted}
                   secureTextEntry
                   autoCapitalize="none"
                   autoCorrect={false}

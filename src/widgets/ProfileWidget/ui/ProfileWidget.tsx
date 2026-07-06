@@ -1,52 +1,42 @@
-import { useMemo, useState } from 'react';
-import { FlatList, Switch, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { Logout } from '../../../features/auth';
-import { styles } from './ProfileWidget.styles';
+import { ToggleTheme } from '../../../features/toggle-theme';
+import { useThemedStyles } from '../../../shared';
+import { createProfileWidgetStyles } from './ProfileWidget.styles';
 import {
   type ProfileWidgetRowItem,
   renderProfileWidgetRow,
 } from './renderProfileWidgetRow.tsx';
 
 export const ProfileWidget = () => {
-  const [isDarkThemeEnabled, setIsDarkThemeEnabled] = useState(false);
+  const styles = useThemedStyles(createProfileWidgetStyles);
 
-  const profileFeatureItems = useMemo<ProfileWidgetRowItem[]>(
-    () => [
-      {
-        id: 'theme',
-        actionElement: (
-          <View>
-            <Text>Смена темы</Text>
-            <Switch
-              onValueChange={setIsDarkThemeEnabled}
-              value={isDarkThemeEnabled}
-            />
-          </View>
-        ),
-      },
-      {
-        id: 'change-password',
-        actionElement: (
-          <View>
-            <Text>Изменить пароль</Text>
-          </View>
-        ),
-      },
-      {
-        id: 'change-email',
-        actionElement: (
-          <View>
-            <Text>Изменить email</Text>
-          </View>
-        ),
-      },
-      {
-        id: 'logout',
-        actionElement: <Logout />,
-      },
-    ],
-    [isDarkThemeEnabled],
-  );
+  const profileFeatureItems: ProfileWidgetRowItem[] = [
+    {
+      id: 'theme',
+      actionElement: <ToggleTheme />,
+    },
+    {
+      id: 'change-password',
+      actionElement: (
+        <View>
+          <Text style={styles.rowText}>Изменить пароль</Text>
+        </View>
+      ),
+    },
+    {
+      id: 'change-email',
+      actionElement: (
+        <View>
+          <Text style={styles.rowText}>Изменить email</Text>
+        </View>
+      ),
+    },
+    {
+      id: 'logout',
+      actionElement: <Logout />,
+    },
+  ];
 
   return (
     <View style={styles.container}>
@@ -54,7 +44,7 @@ export const ProfileWidget = () => {
         <FlatList
           data={profileFeatureItems}
           keyExtractor={item => item.id}
-          renderItem={renderProfileWidgetRow}
+          renderItem={renderProfileWidgetRow(styles)}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           scrollEnabled={false}
         />

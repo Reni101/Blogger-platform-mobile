@@ -1,58 +1,38 @@
 import { StyleSheet } from 'react-native';
+import { type AppThemeColors } from '../../../shared';
 
-export const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    maxWidth: 360,
-    gap: 8,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#1c1f2e',
-  },
-  caption: {
-    fontSize: 13,
-    color: '#7c8090',
-  },
-  card: {
-    backgroundColor: '#ffffff',
-    borderRadius: 16,
-    borderCurve: 'continuous',
-    borderWidth: 1,
-    borderColor: '#e2e6ef',
-    overflow: 'hidden',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 12,
-    minHeight: 68,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  textGroup: {
-    flex: 1,
-    gap: 4,
-  },
-  rowTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1c1f2e',
-  },
-  rowTitleDanger: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#cb3a31',
-  },
-  rowSubtitle: {
-    fontSize: 13,
-    color: '#7c8090',
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#eef1f7',
-    marginLeft: 16,
-  },
-});
+export const createProfileWidgetStyles = (colors: AppThemeColors) =>
+  StyleSheet.create({
+    container: {
+      gap: 8,
+      maxWidth: 360,
+      width: '100%',
+    },
+    card: {
+      backgroundColor: colors.cardBackground,
+      borderColor: colors.cardBorder,
+      borderCurve: 'continuous',
+      borderRadius: 16,
+      borderWidth: 1,
+      overflow: 'hidden',
+    },
+    row: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      gap: 12,
+      justifyContent: 'space-between',
+      minHeight: 68,
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+    },
+    rowText: {
+      color: colors.textPrimary,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    separator: {
+      backgroundColor: colors.separator,
+      height: 1,
+      marginLeft: 16,
+    },
+  });

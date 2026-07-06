@@ -1,13 +1,19 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { Pressable, Text, TextInput, View } from 'react-native';
-import { UserIcon, PasswordIcon, getDomainException } from '../../../../shared';
+import {
+  UserIcon,
+  PasswordIcon,
+  getDomainException,
+  useAppTheme,
+  useThemedStyles,
+} from '../../../../shared';
 import { useRegistrationMutation } from '../../hooks/useRegistrationMutation.ts';
 import {
   registrationSchema,
   type RegistrationFormValues,
 } from '../../model/schemas/registrationSchema.ts';
-import { styles } from './RegistrationForm.styles.ts';
+import { createRegistrationFormStyles } from './RegistrationForm.styles.ts';
 
 type RegistrationFormProps = {
   onSignInPress: () => void;
@@ -24,6 +30,8 @@ function isFormField(field: string): field is keyof RegistrationFormValues {
 }
 
 export const RegistrationForm = ({ onSignInPress }: RegistrationFormProps) => {
+  const { colors } = useAppTheme();
+  const styles = useThemedStyles(createRegistrationFormStyles);
   const {
     control,
     handleSubmit,
@@ -81,13 +89,13 @@ export const RegistrationForm = ({ onSignInPress }: RegistrationFormProps) => {
           name="login"
           render={({ field: { value, onChange, onBlur } }) => (
             <View style={styles.inputRow}>
-              <UserIcon color="#1c1f2e" size={22} strokeWidth={2} />
+              <UserIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
               <TextInput
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Username"
-                placeholderTextColor="#9a9da6"
+                placeholderTextColor={colors.textMuted}
                 autoCapitalize="none"
                 autoCorrect={false}
                 style={styles.input}
@@ -114,7 +122,7 @@ export const RegistrationForm = ({ onSignInPress }: RegistrationFormProps) => {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Email"
-                placeholderTextColor="#9a9da6"
+                placeholderTextColor={colors.textMuted}
                 autoCapitalize="none"
                 autoCorrect={false}
                 keyboardType="email-address"
@@ -136,13 +144,13 @@ export const RegistrationForm = ({ onSignInPress }: RegistrationFormProps) => {
           name="password"
           render={({ field: { value, onChange, onBlur } }) => (
             <View style={styles.inputRow}>
-              <PasswordIcon color="#1c1f2e" size={22} strokeWidth={2} />
+              <PasswordIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
               <TextInput
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 placeholder="Password"
-                placeholderTextColor="#9a9da6"
+                placeholderTextColor={colors.textMuted}
                 autoCapitalize="none"
                 autoCorrect={false}
                 secureTextEntry
