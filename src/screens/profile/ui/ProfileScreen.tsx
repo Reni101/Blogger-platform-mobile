@@ -1,12 +1,13 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { styles } from './ProfileScreen.styles';
 import { useMeQuery } from '../../../features/auth/hooks/useMeQuery.ts';
+import { ProfileWidget } from '../../../widgets/ProfileWidget';
 
 export function ProfileScreen() {
-  const { data } = useMeQuery();
+  useMeQuery();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile screen: {data?.data.login}</Text>
+      <ProfileWidget />
     </View>
   );
 }

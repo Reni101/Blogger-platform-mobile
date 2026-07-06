@@ -2,7 +2,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from './AppNavigation';
 import { BlogsScreen, ProfileScreen, QuizGameScreen } from '../../screens';
 import { AuthGuard, GameIcon, HeadsetIcon, UserPen } from '../../shared';
-import { LogoutBtn } from '../../features/auth';
 import { useMeQuery } from '../../features/auth/hooks/useMeQuery.ts';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -41,11 +40,11 @@ export const MainTabsNavigator = () => {
           component={ProfileScreen}
           name={'profile'}
           options={{
-            headerRight: () => <LogoutBtn />,
             tabBarIcon: ({ color, size }) => (
               <UserPen color={color ?? '#666666'} size={size} />
             ),
             title: 'Profile',
+            headerShown: false,
           }}
         />
       </Tab.Navigator>
