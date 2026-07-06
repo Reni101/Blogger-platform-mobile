@@ -7,8 +7,8 @@ import { useAuthFlow } from '../../features/auth';
 import { MainTabsNavigator } from './MainTabsNavigator';
 
 export type MainTabParamList = {
-  playlists: undefined;
-  tracks: undefined;
+  blogs: undefined;
+  quizGame: undefined;
   profile: undefined;
 };
 

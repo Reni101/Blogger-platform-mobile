@@ -1,6 +1,6 @@
 export { LoginScreen } from './login/ui/LoginScreen';
 export { RegisterScreen } from './register/ui/RegisterScreen';
 export { ForgotPasswordScreen } from './forgot-password/ui/ForgotPasswordScreen';
-export { PlaylistsScreen } from './playlists/ui/PlaylistsScreen';
-export { TracksScreen } from './tracks/ui/TracksScreen';
+export { BlogsScreen } from './blogs/ui/BlogsScreen.tsx';
+export { QuizGameScreen } from './quiz-game/ui/QuizGameScreen.tsx';
 export { ProfileScreen } from './profile/ui/ProfileScreen';

@@ -1,9 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from './AppNavigation';
-import { PlaylistsScreen, ProfileScreen, TracksScreen } from '../../screens';
-import { AudioLines, ListVideo, UserPen } from '../../shared';
+import { BlogsScreen, ProfileScreen, QuizGameScreen } from '../../screens';
+import { AuthGuard, GameIcon, HeadsetIcon, UserPen } from '../../shared';
 import { LogoutBtn } from '../../features/auth';
-import { AuthGuard } from '../../shared';
 import { useMeQuery } from '../../features/auth/hooks/useMeQuery.ts';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -13,29 +12,29 @@ export const MainTabsNavigator = () => {
   return (
     <AuthGuard>
       <Tab.Navigator
-        initialRouteName="playlists"
+        initialRouteName="blogs"
         screenOptions={{
           headerTitleAlign: 'center',
         }}
       >
         <Tab.Screen
-          component={PlaylistsScreen}
-          name={'playlists'}
+          component={BlogsScreen}
+          name={'blogs'}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <ListVideo color={color ?? '#666666'} size={size} />
+              <HeadsetIcon color={color ?? '#666666'} size={size} />
             ),
-            title: 'Playlists',
+            title: 'Blogs',
           }}
         />
         <Tab.Screen
-          component={TracksScreen}
-          name={'tracks'}
+          component={QuizGameScreen}
+          name={'quizGame'}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <AudioLines color={color ?? '#666666'} size={size} />
+              <GameIcon color={color ?? '#666666'} size={size} />
             ),
-            title: 'Tracks',
+            title: 'Quiz game',
           }}
         />
         <Tab.Screen

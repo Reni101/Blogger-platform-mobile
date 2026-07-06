@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
-import { styles } from './PlaylistsScreen.styles';
+import { styles } from './BlogsScreen.styles.ts';
 
-export function PlaylistsScreen() {
+export function BlogsScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Playlists screen</Text>
