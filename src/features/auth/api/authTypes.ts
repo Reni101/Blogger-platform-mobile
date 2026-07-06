@@ -16,3 +16,10 @@ export type RegistrationBodyType = {
   password: string;
   email: string;
 };
+export type PasswordRecoveryBodyType = {
+  email: string;
+};
+export type NewPasswordBodyType = {
+  newPassword: string;
+  recoveryCode: string;
+};

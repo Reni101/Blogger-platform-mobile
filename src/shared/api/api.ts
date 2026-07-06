@@ -3,6 +3,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+import { Platform } from 'react-native';
 import { API_URL2 } from '@env';
 import {
   AsyncStorage,
@@ -19,9 +20,29 @@ type RetryableAxiosRequestConfig = InternalAxiosRequestConfig & {
   _retry?: boolean;
 };
 
+const ANDROID_EMULATOR_HOST = '10.0.2.2';
+
+function resolveApiBaseUrl(rawBaseUrl: string) {
+  const trimmedBaseUrl = rawBaseUrl.trim();
+
+  if (!trimmedBaseUrl) {
+    throw new Error('API_URL2 is empty');
+  }
+
+  if (Platform.OS !== 'android') {
+    return trimmedBaseUrl;
+  }
+
+  // Android emulator cannot access host machine by localhost/127.0.0.1.
+  return trimmedBaseUrl
+    .replace('://localhost', `://${ANDROID_EMULATOR_HOST}`)
+    .replace('://127.0.0.1', `://${ANDROID_EMULATOR_HOST}`);
+}
+
 /** Запросы, при 401 на которых refresh не выполняется. */
 const AUTH_REFRESH_SKIP_PATHS: string[] = ['/auth/login'];
 
+const API_BASE_URL = resolveApiBaseUrl(API_URL2);
 
 function shouldSkipAuthRefresh(url?: string) {
   if (!url) {
@@ -32,7 +53,7 @@ function shouldSkipAuthRefresh(url?: string) {
 }
 
 export const api = axios.create({
-  baseURL: API_URL2,
+  baseURL: API_BASE_URL,
   // Без таймаута зависший сервер не порождает ошибку — ставим предел,
   // после которого axios бросит ECONNABORTED (сервер не отвечает).
   timeout: 15_000,
@@ -70,7 +91,7 @@ async function refreshAccessToken() {
   }
 
   const { data } = await axios.post<RefreshTokenResponse>(
-    `${API_URL2}auth/refresh-token`,
+    `${API_BASE_URL}auth/refresh-token`,
     { refreshToken },
     { timeout: 15_000 },
   );

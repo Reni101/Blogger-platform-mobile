@@ -2,6 +2,8 @@ import {
   LoginBodyType,
   LoginRes,
   MeRes,
+  NewPasswordBodyType,
+  PasswordRecoveryBodyType,
   RegistrationBodyType,
 } from './authTypes.ts';
 import { api } from '../../../shared/api';
@@ -18,5 +20,11 @@ export class AuthApi {
   }
   static async registration(body: RegistrationBodyType) {
     return api.post('/auth/registration', body);
+  }
+  static async passwordRecovery(body: PasswordRecoveryBodyType) {
+    return api.post('/auth/password-recovery', body);
+  }
+  static async newPassword(body: NewPasswordBodyType) {
+    return api.post('/auth/new-password', body);
   }
 }
