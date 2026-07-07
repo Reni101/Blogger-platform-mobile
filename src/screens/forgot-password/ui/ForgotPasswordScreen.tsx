@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { HeadsetIcon, useAppTheme, useThemedStyles } from '../../../shared';
-import { PasswordRecovery } from '../../../features/auth';
+import { PasswordRecovery } from '../../../features/user-accaunts/auth';
 import { createForgotPasswordScreenStyles } from './ForgotPasswordScreen.styles';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';

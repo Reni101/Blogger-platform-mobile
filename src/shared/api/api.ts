@@ -40,7 +40,7 @@ function resolveApiBaseUrl(rawBaseUrl: string) {
 }
 
 /** Запросы, при 401 на которых refresh не выполняется. */
-const AUTH_REFRESH_SKIP_PATHS: string[] = ['/auth/login'];
+const AUTH_REFRESH_SKIP_PATHS: string[] = ['/user-accaunts/login'];
 
 const API_BASE_URL = resolveApiBaseUrl(API_URL2);
 

@@ -7,7 +7,7 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, View } from 'react-native';
 import { ForgotPasswordScreen, LoginScreen, RegisterScreen } from '../../screens';
-import { useAuthFlow } from '../../features/auth';
+import { useAuthFlow } from '../../features/user-accaunts/auth';
 import { useAppTheme } from '../../shared';
 import { MainTabsNavigator } from './MainTabsNavigator';
 

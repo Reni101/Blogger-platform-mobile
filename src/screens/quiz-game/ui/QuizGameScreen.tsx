@@ -7,7 +7,7 @@ export function QuizGameScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tracks screen</Text>
+      <Text style={styles.title}>Quiz game screen</Text>
     </View>
   );
 }

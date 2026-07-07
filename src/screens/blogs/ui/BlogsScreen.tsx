@@ -7,7 +7,7 @@ export function BlogsScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Playlists screen</Text>
+      <Text style={styles.title}>blogs screen</Text>
     </View>
   );
 }

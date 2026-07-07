@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import { createProfileScreenStyles } from './ProfileScreen.styles';
-import { useMeQuery } from '../../../features/auth/hooks/useMeQuery.ts';
+import { useMeQuery } from '../../../features/user-accaunts/auth/hooks/useMeQuery.ts';
 import { ProfileWidget } from '../../../widgets/ProfileWidget';
 import { useThemedStyles } from '../../../shared';
 
