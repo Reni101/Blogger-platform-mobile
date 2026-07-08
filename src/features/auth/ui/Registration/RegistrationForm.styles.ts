@@ -26,6 +26,10 @@ export const createRegistrationFormStyles = (colors: AppThemeColors) =>
       fontSize: 16,
       padding: 0,
     },
+    passwordToggle: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     iconText: {
       color: colors.iconPrimary,
       fontSize: 18,

@@ -1,7 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import {
+  EyeIcon,
+  EyeOffIcon,
   UserIcon,
   PasswordIcon,
   getDomainException,
@@ -30,6 +33,7 @@ function isFormField(field: string): field is keyof RegistrationFormValues {
 }
 
 export const RegistrationForm = ({ onSignInPress }: RegistrationFormProps) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createRegistrationFormStyles);
   const {
@@ -153,9 +157,22 @@ export const RegistrationForm = ({ onSignInPress }: RegistrationFormProps) => {
                 placeholderTextColor={colors.textMuted}
                 autoCapitalize="none"
                 autoCorrect={false}
-                secureTextEntry
+                secureTextEntry={!isPasswordVisible}
                 style={styles.input}
               />
+              <Pressable
+                accessibilityLabel={
+                  isPasswordVisible ? 'Hide password' : 'Show password'
+                }
+                onPress={() => setIsPasswordVisible(prev => !prev)}
+                style={styles.passwordToggle}
+              >
+                {isPasswordVisible ? (
+                  <EyeOffIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
+                ) : (
+                  <EyeIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
+                )}
+              </Pressable>
             </View>
           )}
         />

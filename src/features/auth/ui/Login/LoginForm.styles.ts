@@ -26,6 +26,10 @@ export const createLoginFormStyles = (colors: AppThemeColors) =>
       fontSize: 16,
       padding: 0,
     },
+    passwordToggle: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     errorSlot: {
       justifyContent: 'center',
       minHeight: 20,

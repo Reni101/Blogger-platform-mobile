@@ -1,10 +1,13 @@
 import { Controller, useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { useLoginMutation } from '../../hooks/useLoginMutation.ts';
 import { type LoginFormValues, loginSchema } from '../../model/schemas/loginSchema.ts';
 import {
   DomainExceptionCode,
+  EyeIcon,
+  EyeOffIcon,
   getDomainException,
   PasswordIcon,
   useAppTheme,
@@ -23,6 +26,7 @@ export const LoginForm = ({
   onForgotPasswordPress,
   onSignUpPress,
 }: LoginFormProps) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createLoginFormStyles);
   const {
@@ -99,11 +103,27 @@ export const LoginForm = ({
                 onBlur={onBlur}
                 placeholder="Password"
                 placeholderTextColor={colors.textMuted}
-                secureTextEntry
+                secureTextEntry={!isPasswordVisible}
                 autoCapitalize="none"
                 autoCorrect={false}
                 style={styles.input}
               />
+              <Pressable
+                accessibilityLabel={
+                  isPasswordVisible ? 'Hide password' : 'Show password'
+                }
+                onPress={() => setIsPasswordVisible(prev => !prev)}
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {isPasswordVisible ? (
+                  <EyeOffIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
+                ) : (
+                  <EyeIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
+                )}
+              </Pressable>
             </View>
           )}
         />

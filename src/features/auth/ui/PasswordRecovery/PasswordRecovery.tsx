@@ -11,6 +11,8 @@ import {
 import { usePasswordRecoveryMutation } from '../../hooks/usePasswordRecoveryMutation.ts';
 import { useNewPasswordMutation } from '../../hooks/useNewPasswordMutation.ts';
 import {
+  EyeIcon,
+  EyeOffIcon,
   PasswordIcon,
   getDomainException,
   useAppTheme,
@@ -42,6 +44,7 @@ export function PasswordRecovery({ onSignInPress }: PasswordRecoveryProps) {
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createPasswordRecoveryStyles);
   const [isRecoveryStepVisible, setIsRecoveryStepVisible] = useState(false);
+  const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
 
   const {
     control: passwordRecoveryControl,
@@ -256,11 +259,24 @@ export function PasswordRecovery({ onSignInPress }: PasswordRecoveryProps) {
                   onBlur={onBlur}
                   placeholder="Новый пароль"
                   placeholderTextColor={colors.textMuted}
-                  secureTextEntry
+                  secureTextEntry={!isNewPasswordVisible}
                   autoCapitalize="none"
                   autoCorrect={false}
                   style={styles.input}
                 />
+                <Pressable
+                  accessibilityLabel={
+                    isNewPasswordVisible ? 'Hide password' : 'Show password'
+                  }
+                  onPress={() => setIsNewPasswordVisible(prev => !prev)}
+                  style={styles.passwordToggle}
+                >
+                  {isNewPasswordVisible ? (
+                    <EyeOffIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
+                  ) : (
+                    <EyeIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
+                  )}
+                </Pressable>
               </View>
             )}
           />

@@ -3,6 +3,8 @@ export { ListVideo } from './list-video.tsx';
 export { UserPen } from './user-pen.tsx';
 export { LogoutIcon } from './logout-icon.tsx';
 export { PasswordIcon } from './password-icon.tsx';
+export { EyeIcon } from './eye-icon.tsx';
+export { EyeOffIcon } from './eye-off-icon.tsx';
 export { HeadsetIcon } from './headset-icon.tsx';
 export { UserIcon } from './user-icon.tsx';
 export { GameIcon } from './game-icon.tsx';
