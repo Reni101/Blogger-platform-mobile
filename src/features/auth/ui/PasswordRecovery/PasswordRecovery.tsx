@@ -15,7 +15,7 @@ import {
   getDomainException,
   useAppTheme,
   useThemedStyles,
-} from '../../../../../shared';
+} from '../../../../shared';
 import { createPasswordRecoveryStyles } from './PasswordRecovery.styles.ts';
 
 type PasswordRecoveryProps = {

@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { HeadsetIcon, useAppTheme, useThemedStyles } from '../../../shared';
-import { RegistrationForm } from '../../../features/user-accaunts/auth';
+import { RegistrationForm } from '../../../features/auth';
 import { createRegisterScreenStyles } from './RegisterScreen.styles';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';

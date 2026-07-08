@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { AppThemeColors } from '../../../../shared';
+import { AppThemeColors } from '../../../shared';
 
 export const createToggleThemeStyles = (colors: AppThemeColors) =>
   StyleSheet.create({

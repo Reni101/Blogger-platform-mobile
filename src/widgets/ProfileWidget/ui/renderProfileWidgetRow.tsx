@@ -1,13 +1,18 @@
 import { type ReactElement } from 'react';
 import {
   type ListRenderItemInfo,
-  View,
   type StyleProp,
+  View,
   type ViewStyle,
 } from 'react-native';
 
 export type ProfileWidgetRowItem = {
-  id: 'theme' | 'logout' | 'change-password' | 'change-email';
+  id:
+    | 'theme'
+    | 'logout'
+    | 'change-password'
+    | 'change-email'
+    | 'email-conformation';
   actionElement: ReactElement;
 };
 

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { type AppThemeColors } from '../../consts/theme.ts';
+import { type AppThemeColors } from '../../consts';
 
 export const createModalStyles = (colors: AppThemeColors) =>
   StyleSheet.create({
@@ -11,7 +11,7 @@ export const createModalStyles = (colors: AppThemeColors) =>
     },
     backdrop: {
       backgroundColor: 'rgba(0, 0, 0, 0.45)',
-      ...StyleSheet.absoluteFillObject,
+
     },
     content: {
       backgroundColor: colors.cardBackground,

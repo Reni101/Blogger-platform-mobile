@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { type AppThemeColors } from '../../../../../shared';
+import { type AppThemeColors } from '../../../../shared';
 
-export const createRegistrationFormStyles = (colors: AppThemeColors) =>
+export const createPasswordRecoveryStyles = (colors: AppThemeColors) =>
   StyleSheet.create({
     container: {
       gap: 8,
@@ -31,6 +31,16 @@ export const createRegistrationFormStyles = (colors: AppThemeColors) =>
       fontSize: 18,
       fontWeight: '700',
       width: 22,
+    },
+    infoText: {
+      color: colors.textSecondary,
+      fontSize: 14,
+      paddingHorizontal: 4,
+    },
+    successText: {
+      color: colors.success,
+      fontSize: 14,
+      paddingHorizontal: 4,
     },
     errorSlot: {
       justifyContent: 'center',

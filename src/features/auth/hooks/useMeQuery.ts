@@ -1,6 +1,6 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import { AuthApi } from '../api/auth-api.ts';
-import { AsyncStorage } from '../../../../shared';
+import { AsyncStorage } from '../../../shared';
 
 type MeResponse = Awaited<ReturnType<typeof AuthApi.me>> | null;
 

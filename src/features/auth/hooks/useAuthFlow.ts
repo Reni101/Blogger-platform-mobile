@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AsyncStorage } from '../../../../shared';
+import { AsyncStorage } from '../../../shared';
 
 type AuthInitialRoute = 'login' | 'mainTabs';
 type AuthInitialTab = 'blogs' | undefined;

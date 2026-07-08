@@ -1,4 +1,4 @@
-import { type PropsWithChildren } from 'react';
+import { type ComponentProps, type PropsWithChildren } from 'react';
 import {
   Modal as RNModal,
   Pressable,
@@ -7,12 +7,13 @@ import {
 import { useThemedStyles } from '../../lib';
 import { createModalStyles } from './Modal.styles.ts';
 
-type ModalProps = PropsWithChildren<{
-  visible: boolean;
-  onClose: () => void;
-}>;
+type ModalProps = PropsWithChildren<
+  Omit<ComponentProps<typeof RNModal>, 'children' | 'onRequestClose'> & {
+    onClose: () => void;
+  }
+>;
 
-export function Modal({ visible, onClose, children }: ModalProps) {
+export function Modal({ visible, onClose, children, ...modalProps }: ModalProps) {
   const styles = useThemedStyles(createModalStyles);
 
   return (
@@ -21,6 +22,7 @@ export function Modal({ visible, onClose, children }: ModalProps) {
       onRequestClose={onClose}
       transparent
       visible={visible}
+      {...modalProps}
     >
       <View style={styles.overlay}>
         <Pressable

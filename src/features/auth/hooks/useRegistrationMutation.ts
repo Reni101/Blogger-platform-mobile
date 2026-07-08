@@ -4,8 +4,8 @@ import { AuthApi } from '../api/auth-api.ts';
 import type { RegistrationBodyType } from '../api/authTypes.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '../../../../app/navigation/AppNavigation.tsx';
-import type { DomainException } from '../../../../shared';
+import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';
+import type { DomainException } from '../../../shared';
 
 type RegistrationResponse = Awaited<ReturnType<typeof AuthApi.registration>>;
 type RegistrationError = AxiosError<DomainException>;

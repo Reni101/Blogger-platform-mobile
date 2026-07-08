@@ -20,3 +20,10 @@ export type NewPasswordBodyType = {
   newPassword: string;
   recoveryCode: string;
 };
+
+export type EmailResendingBodyType = {
+  email: string;
+};
+export type ConfirmationBodyType = {
+  code: string;
+};

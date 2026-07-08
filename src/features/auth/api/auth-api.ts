@@ -1,12 +1,14 @@
 import {
+  ConfirmationBodyType,
+  EmailResendingBodyType,
   LoginBodyType,
   LoginRes,
   NewPasswordBodyType,
   PasswordRecoveryBodyType,
   RegistrationBodyType,
 } from './authTypes.ts';
-import { api } from '../../../../shared/api';
-import { UserType } from '../../../../entities/User';
+import { api } from '../../../shared/api';
+import { UserType } from '../../../entities/User';
 
 export class AuthApi {
   static async login(body: LoginBodyType) {
@@ -26,5 +28,11 @@ export class AuthApi {
   }
   static async newPassword(body: NewPasswordBodyType) {
     return api.post('/auth/new-password', body);
+  }
+  static async registrationEmailResending(body: EmailResendingBodyType) {
+    return api.post('/auth/registration-email-resenditn', body);
+  }
+  static async registrationConfirmation(body: ConfirmationBodyType) {
+    return api.post('/auth/registration-confirmation', body);
   }
 }

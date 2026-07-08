@@ -12,9 +12,9 @@ export const AudioLines = (props: PropsType) => {
     <Svg fill="none" height={size} viewBox="0 0 24 24" width={size}>
       <Path
         d="M2 10v3"
-        stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
+        stroke={color}
         strokeWidth={strokeWidth}
       />
       <Path

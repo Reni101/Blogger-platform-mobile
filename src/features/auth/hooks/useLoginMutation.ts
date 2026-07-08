@@ -4,9 +4,9 @@ import { AuthApi } from '../api/auth-api.ts';
 import type { LoginBodyType } from '../api/authTypes.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '../../../../app/navigation/AppNavigation.tsx';
-import { AsyncStorage, SecureStorage } from '../../../../shared';
-import type { DomainException } from '../../../../shared';
+import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';
+import { AsyncStorage, SecureStorage } from '../../../shared';
+import type { DomainException } from '../../../shared';
 
 type LoginResponse = Awaited<ReturnType<typeof AuthApi.login>>;
 type LoginError = AxiosError<DomainException>;

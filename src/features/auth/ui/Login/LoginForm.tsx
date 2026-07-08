@@ -10,7 +10,7 @@ import {
   useAppTheme,
   useThemedStyles,
   UserIcon,
-} from '../../../../../shared';
+} from '../../../../shared';
 import { createLoginFormStyles } from './LoginForm.styles.ts';
 import { LOGIN, PASSWORD } from '@env';
 

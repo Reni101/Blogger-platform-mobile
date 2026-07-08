@@ -7,7 +7,7 @@ import {
   getDomainException,
   useAppTheme,
   useThemedStyles,
-} from '../../../../../shared';
+} from '../../../../shared';
 import { useRegistrationMutation } from '../../hooks/useRegistrationMutation.ts';
 import {
   registrationSchema,

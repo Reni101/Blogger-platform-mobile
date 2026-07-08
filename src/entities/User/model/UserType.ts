@@ -1,4 +1,6 @@
 export type UserType = {
-  userId: string;
+  id: string;
   login: string;
+  email: string;
+  isEmailConfirm: boolean;
 };
