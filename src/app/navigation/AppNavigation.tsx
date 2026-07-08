@@ -5,8 +5,13 @@ import {
   NavigationContainer,
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ActivityIndicator, View } from 'react-native';
-import { ForgotPasswordScreen, LoginScreen, RegisterScreen } from '../../screens';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import {
+  ConfirmationEmailScreen,
+  ForgotPasswordScreen,
+  LoginScreen,
+  RegisterScreen,
+} from '../../screens';
 import { useAuthFlow } from '../../features/auth';
 import { useAppTheme } from '../../shared';
 import { MainTabsNavigator } from './MainTabsNavigator';
@@ -21,28 +26,33 @@ export type RootStackParamList = {
   login: undefined;
   register: undefined;
   forgotPassword: undefined;
+  confirmationEmail: undefined;
   mainTabs: NavigatorScreenParams<MainTabParamList> | undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+const createAppNavigationStyles = (backgroundColor: string) =>
+  StyleSheet.create({
+    loadingContainer: {
+      alignItems: 'center',
+      backgroundColor,
+      flex: 1,
+      justifyContent: 'center',
+    },
+  });
+
 export function AppNavigation() {
   const { colors, mode } = useAppTheme();
   const { initialMainTabScreen, initialRouteName, isBootstrapping } =
     useAuthFlow();
+  const styles = createAppNavigationStyles(colors.screenBackground);
 
   const navigationTheme = mode === 'dark' ? DarkTheme : DefaultTheme;
 
   if (isBootstrapping) {
     return (
-      <View
-        style={{
-          alignItems: 'center',
-          backgroundColor: colors.screenBackground,
-          flex: 1,
-          justifyContent: 'center',
-        }}
-      >
+      <View style={styles.loadingContainer}>
         <ActivityIndicator color={colors.accentContrast} size="large" />
       </View>
     );
@@ -80,6 +90,12 @@ export function AppNavigation() {
           key={'forgotPassword'}
           name={'forgotPassword'}
           options={{ title: 'Forgot password', headerShown: false }}
+        />
+        <Stack.Screen
+          component={ConfirmationEmailScreen}
+          key={'confirmationEmail'}
+          name={'confirmationEmail'}
+          options={{ title: 'Confirm email', headerShown: false }}
         />
         <Stack.Screen
           component={MainTabsNavigator}

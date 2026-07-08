@@ -4,7 +4,7 @@ import { AsyncStorage } from '../../../shared';
 
 type MeResponse = Awaited<ReturnType<typeof AuthApi.me>> | null;
 
-const meQueryKey = ['auth', 'me'] as const;
+export const meQueryKey = ['auth', 'me'] as const;
 
 export function useMeQuery(
   options?: Omit<UseQueryOptions<MeResponse, Error>, 'queryKey' | 'queryFn'>,

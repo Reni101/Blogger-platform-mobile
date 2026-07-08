@@ -1,35 +1,47 @@
-import { Text, View } from 'react-native';
+import { useMemo } from 'react';
 import { ProfileWidgetRowItem } from './renderProfileWidgetRow.tsx';
 import { ToggleTheme } from '../../../features/toggle-theme';
-import { Logout } from '../../../features/auth';
+import { ConfirmationEmailAction, Logout } from '../../../features/auth';
+import { useMeQuery } from '../../../features/auth/hooks/useMeQuery.ts';
 
-export const profileFeatureItems: ProfileWidgetRowItem[] = [
-  {
-    id: 'theme',
-    actionElement: <ToggleTheme />,
-  },
-  {
-    id: 'email-conformation',
-    actionElement: <Text>Confirm email</Text>,
-  },
-  {
-    id: 'change-password',
-    actionElement: (
-      <View>
-        <Text>Change password</Text>
-      </View>
-    ),
-  },
-  {
-    id: 'change-email',
-    actionElement: (
-      <View>
-        <Text>Change email</Text>
-      </View>
-    ),
-  },
-  {
-    id: 'logout',
-    actionElement: <Logout />,
-  },
-];
+export function useProfileFeatureItems(): ProfileWidgetRowItem[] {
+  const { data: me } = useMeQuery();
+
+  return useMemo(() => {
+    const items: ProfileWidgetRowItem[] = [
+      {
+        id: 'theme',
+        actionElement: <ToggleTheme />,
+      },
+      // {
+      //   id: 'change-password',
+      //   actionElement: (
+      //     <View>
+      //       <Text>Change password</Text>
+      //     </View>
+      //   ),
+      // },
+      // {
+      //   id: 'change-email',
+      //   actionElement: (
+      //     <View>
+      //       <Text>Change email</Text>
+      //     </View>
+      //   ),
+      // },
+      {
+        id: 'logout',
+        actionElement: <Logout />,
+      },
+    ];
+
+    if (!me?.data.isEmailConfirm) {
+      items.splice(1, 0, {
+        id: 'email-conformation',
+        actionElement: <ConfirmationEmailAction />,
+      });
+    }
+
+    return items;
+  }, [me?.data.isEmailConfirm]);
+}

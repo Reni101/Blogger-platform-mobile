@@ -30,7 +30,7 @@ export class AuthApi {
     return api.post('/auth/new-password', body);
   }
   static async registrationEmailResending(body: EmailResendingBodyType) {
-    return api.post('/auth/registration-email-resenditn', body);
+    return api.post('/auth/registration-email-resending', body);
   }
   static async registrationConfirmation(body: ConfirmationBodyType) {
     return api.post('/auth/registration-confirmation', body);

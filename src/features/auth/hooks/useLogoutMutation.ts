@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';
 import { AsyncStorage, SecureStorage } from '../../../shared';
+import { meQueryKey } from './useMeQuery.ts';
 
 type LogoutResponse = Awaited<ReturnType<typeof AuthApi.logOut>> | null;
 type LoginNavigation = NativeStackNavigationProp<RootStackParamList, 'login'>;
@@ -33,7 +34,7 @@ export function useLogoutMutation(
         await AsyncStorage.remove('accessToken');
       }
       navigation.replace('login');
-      context.client.removeQueries({ queryKey: ['auth', 'me'] });
+      context.client.removeQueries({ queryKey: meQueryKey });
       await onSuccess?.(data, variables, onMutateResult, context);
     },
     ...mutationOptions,
