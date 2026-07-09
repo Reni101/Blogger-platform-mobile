@@ -3,7 +3,10 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { useLoginMutation } from '../../hooks/useLoginMutation.ts';
-import { type LoginFormValues, loginSchema } from '../../model/schemas/loginSchema.ts';
+import {
+  type LoginFormValues,
+  loginSchema,
+} from '../../model/schemas/loginSchema.ts';
 import {
   DomainExceptionCode,
   EyeIcon,
@@ -11,8 +14,8 @@ import {
   getDomainException,
   PasswordIcon,
   useAppTheme,
-  useThemedStyles,
   UserIcon,
+  useThemedStyles,
 } from '../../../../shared';
 import { createLoginFormStyles } from './LoginForm.styles.ts';
 import { LOGIN, PASSWORD } from '@env';
@@ -96,7 +99,11 @@ export const LoginForm = ({
           name="password"
           render={({ field: { value, onChange, onBlur } }) => (
             <View style={styles.inputRow}>
-              <PasswordIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
+              <PasswordIcon
+                color={colors.iconPrimary}
+                size={22}
+                strokeWidth={2}
+              />
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -113,15 +120,19 @@ export const LoginForm = ({
                   isPasswordVisible ? 'Hide password' : 'Show password'
                 }
                 onPress={() => setIsPasswordVisible(prev => !prev)}
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
               >
                 {isPasswordVisible ? (
-                  <EyeOffIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
+                  <EyeOffIcon
+                    color={colors.iconPrimary}
+                    size={22}
+                    strokeWidth={2}
+                  />
                 ) : (
-                  <EyeIcon color={colors.iconPrimary} size={22} strokeWidth={2} />
+                  <EyeIcon
+                    color={colors.iconPrimary}
+                    size={22}
+                    strokeWidth={2}
+                  />
                 )}
               </Pressable>
             </View>

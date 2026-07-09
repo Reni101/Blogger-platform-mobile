@@ -8,7 +8,6 @@ import {
   RegistrationBodyType,
 } from './authTypes.ts';
 import { api } from '../../../shared/api';
-import { UserType } from '../../../entities/User';
 
 export class AuthApi {
   static async login(body: LoginBodyType) {
@@ -17,9 +16,7 @@ export class AuthApi {
   static async logOut(refreshToken: string) {
     return api.post('/auth/logout', { refreshToken });
   }
-  static async me() {
-    return api.get<UserType>('/auth/me', {});
-  }
+
   static async registration(body: RegistrationBodyType) {
     return api.post('/auth/registration', body);
   }

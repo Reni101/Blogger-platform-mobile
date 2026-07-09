@@ -3,12 +3,7 @@ import { useThemedStyles } from '../../../shared';
 import { createProfileWidgetStyles } from './ProfileWidget.styles';
 import { renderProfileWidgetRow } from './renderProfileWidgetRow.tsx';
 import { useProfileFeatureItems } from './profileFeatureItems.tsx';
-
-const ProfileWidgetSeparator = () => {
-  const styles = useThemedStyles(createProfileWidgetStyles);
-
-  return <View style={styles.separator} />;
-};
+import { UserInfo } from '../../../features/user-info';
 
 export const ProfileWidget = () => {
   const styles = useThemedStyles(createProfileWidgetStyles);
@@ -16,11 +11,14 @@ export const ProfileWidget = () => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
+        <UserInfo />
+      </View>
+      <View style={styles.card}>
         <FlatList
           data={profileFeatureItems}
           keyExtractor={item => item.id}
           renderItem={renderProfileWidgetRow(styles)}
-          ItemSeparatorComponent={ProfileWidgetSeparator}
+          ItemSeparatorComponent={<View style={styles.separator} />}
           scrollEnabled={false}
         />
       </View>

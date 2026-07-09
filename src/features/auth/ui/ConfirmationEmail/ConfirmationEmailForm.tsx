@@ -6,7 +6,7 @@ import {
   useAppTheme,
   useThemedStyles,
 } from '../../../../shared';
-import { useMeQuery } from '../../hooks/useMeQuery.ts';
+import { useMeQuery } from '../../../../entities/User';
 import { useRegistrationConfirmationMutation } from '../../hooks/useRegistrationConfirmationMutation.ts';
 import { useRegistrationEmailResendingMutation } from '../../hooks/useRegistrationEmailResendingMutation.ts';
 import {

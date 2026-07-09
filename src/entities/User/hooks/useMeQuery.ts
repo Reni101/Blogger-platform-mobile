@@ -1,8 +1,8 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
-import { AuthApi } from '../api/auth-api.ts';
 import { AsyncStorage } from '../../../shared';
+import { UserApi } from '../api/user-api.ts';
 
-type MeResponse = Awaited<ReturnType<typeof AuthApi.me>> | null;
+type MeResponse = Awaited<ReturnType<typeof UserApi.me>> | null;
 
 export const meQueryKey = ['auth', 'me'] as const;
 
@@ -16,7 +16,7 @@ export function useMeQuery(
       if (!accessToken) {
         return null;
       }
-      return AuthApi.me();
+      return UserApi.me();
     },
     ...options,
   });
