@@ -3,6 +3,7 @@ import { ProfileWidgetRowItem } from './renderProfileWidgetRow.tsx';
 import { ToggleTheme } from '../../../features/toggle-theme';
 import { ConfirmationEmailAction, Logout } from '../../../features/auth';
 import { useMeQuery } from '../../../entities/user';
+import { Devices } from '../../../features/user-info';
 
 export function useProfileFeatureItems(): ProfileWidgetRowItem[] {
   const { data: me } = useMeQuery();
@@ -13,22 +14,10 @@ export function useProfileFeatureItems(): ProfileWidgetRowItem[] {
         id: 'theme',
         actionElement: <ToggleTheme />,
       },
-      // {
-      //   id: 'change-password',
-      //   actionElement: (
-      //     <View>
-      //       <Text>Change password</Text>
-      //     </View>
-      //   ),
-      // },
-      // {
-      //   id: 'change-email',
-      //   actionElement: (
-      //     <View>
-      //       <Text>Change email</Text>
-      //     </View>
-      //   ),
-      // },
+      {
+        id: 'devices',
+        actionElement: <Devices />,
+      },
       {
         id: 'logout',
         actionElement: <Logout />,
@@ -45,3 +34,20 @@ export function useProfileFeatureItems(): ProfileWidgetRowItem[] {
     return items;
   }, [me?.data.isEmailConfirm]);
 }
+
+// {
+//   id: 'change-password',
+//   actionElement: (
+//     <View>
+//       <Text>Change password</Text>
+//     </View>
+//   ),
+// },
+// {
+//   id: 'change-email',
+//   actionElement: (
+//     <View>
+//       <Text>Change email</Text>
+//     </View>
+//   ),
+// },

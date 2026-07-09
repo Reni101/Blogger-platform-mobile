@@ -1,7 +1,7 @@
 import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { AuthApi } from '../api/auth-api.ts';
-import type { EmailResendingBodyType } from '../api/authTypes.ts';
+import type { EmailResendingBodyType } from '../api/auth-types.ts';
 import type { DomainException } from '../../../shared';
 
 type RegistrationEmailResendingResponse = Awaited<

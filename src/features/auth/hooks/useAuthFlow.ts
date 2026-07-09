@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { AsyncStorage } from '../../../shared';
 
 type AuthInitialRoute = 'login' | 'mainTabs';
-type AuthInitialTab = 'blogs' | undefined;
 
 export function useAuthFlow() {
   const [hasAccessToken, setHasAccessToken] = useState(false);
@@ -33,13 +32,9 @@ export function useAuthFlow() {
 
   const initialRouteName: AuthInitialRoute =
     hasAccessToken ? 'mainTabs' : 'login';
-  const initialMainTabScreen: AuthInitialTab = hasAccessToken
-    ? 'blogs'
-    : undefined;
 
   return {
     initialRouteName,
-    initialMainTabScreen,
     isBootstrapping,
   };
 }

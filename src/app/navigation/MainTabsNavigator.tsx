@@ -1,8 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from './AppNavigation';
-import { BlogsScreen, ProfileScreen, QuizGameScreen } from '../../screens';
+import { BlogsScreen, QuizGameScreen } from '../../screens';
 import { AuthGuard, GameIcon, HeadsetIcon, useAppTheme, UserPen } from '../../shared';
 import { useMeQuery } from '../../entities/user';
+import { ProfileStackNavigator } from './ProfileStackNavigator';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -51,7 +52,7 @@ export const MainTabsNavigator = () => {
           }}
         />
         <Tab.Screen
-          component={ProfileScreen}
+          component={ProfileStackNavigator}
           name={'profile'}
           options={{
             tabBarIcon: ({ color, size }) => (

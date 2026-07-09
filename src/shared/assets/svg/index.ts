@@ -9,3 +9,5 @@ export { HeadsetIcon } from './headset-icon.tsx';
 export { UserIcon } from './user-icon.tsx';
 export { GameIcon } from './game-icon.tsx';
 export { MailWarningIcon } from './mail-warning-icon.tsx';
+export { AppleIcon } from './apple-icon.tsx';
+export { AndroidIcon } from './android-icon.tsx';

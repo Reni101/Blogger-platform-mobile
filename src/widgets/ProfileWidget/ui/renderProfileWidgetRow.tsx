@@ -11,6 +11,7 @@ export type ProfileWidgetRowItem = {
     | 'theme'
     | 'logout'
     | 'change-password'
+    | 'devices'
     | 'change-email'
     | 'email-conformation';
   actionElement: ReactElement;

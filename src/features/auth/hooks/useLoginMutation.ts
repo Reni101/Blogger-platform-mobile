@@ -1,7 +1,7 @@
 import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 import type { AxiosError } from 'axios';
 import { AuthApi } from '../api/auth-api.ts';
-import type { LoginBodyType } from '../api/authTypes.ts';
+import type { LoginBodyType } from '../api/auth-types.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';

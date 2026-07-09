@@ -7,7 +7,6 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import {
-  ConfirmationEmailScreen,
   ForgotPasswordScreen,
   LoginScreen,
   RegisterScreen,
@@ -15,19 +14,19 @@ import {
 import { useAuthFlow } from '../../features/auth';
 import { useAppTheme } from '../../shared';
 import { MainTabsNavigator } from './MainTabsNavigator';
+import type { ProfileStackParamList } from './ProfileStackNavigator';
 
 export type MainTabParamList = {
   blogs: undefined;
   quizGame: undefined;
-  profile: undefined;
+  profile: NavigatorScreenParams<ProfileStackParamList> | undefined;
 };
 
 export type RootStackParamList = {
   login: undefined;
   register: undefined;
   forgotPassword: undefined;
-  confirmationEmail: undefined;
-  mainTabs: NavigatorScreenParams<MainTabParamList> | undefined;
+  mainTabs: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -44,8 +43,7 @@ const createAppNavigationStyles = (backgroundColor: string) =>
 
 export function AppNavigation() {
   const { colors, mode } = useAppTheme();
-  const { initialMainTabScreen, initialRouteName, isBootstrapping } =
-    useAuthFlow();
+  const { initialRouteName, isBootstrapping } = useAuthFlow();
   const styles = createAppNavigationStyles(colors.screenBackground);
 
   const navigationTheme = mode === 'dark' ? DarkTheme : DefaultTheme;
@@ -92,18 +90,7 @@ export function AppNavigation() {
           options={{ title: 'Forgot password', headerShown: false }}
         />
         <Stack.Screen
-          component={ConfirmationEmailScreen}
-          key={'confirmationEmail'}
-          name={'confirmationEmail'}
-          options={{ title: 'Confirm email', headerShown: false }}
-        />
-        <Stack.Screen
           component={MainTabsNavigator}
-          initialParams={
-            initialMainTabScreen
-              ? { screen: initialMainTabScreen }
-              : undefined
-          }
           key={'mainTabs'}
           name={'mainTabs'}
           options={{ headerShown: false }}

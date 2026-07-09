@@ -6,7 +6,7 @@ import {
   NewPasswordBodyType,
   PasswordRecoveryBodyType,
   RegistrationBodyType,
-} from './authTypes.ts';
+} from './auth-types.ts';
 import { api } from '../../../shared/api';
 import { getDeviceName } from '../../../shared';
 
