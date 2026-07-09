@@ -8,10 +8,14 @@ import {
   RegistrationBodyType,
 } from './authTypes.ts';
 import { api } from '../../../shared/api';
+import { getDeviceName } from '../../../shared';
 
 export class AuthApi {
   static async login(body: LoginBodyType) {
-    return api.post<LoginRes>('/auth/login', body);
+    const name = getDeviceName();
+    return api.post<LoginRes>('/auth/login', body, {
+      headers: { 'x-device-name': name },
+    });
   }
   static async logOut(refreshToken: string) {
     return api.post('/auth/logout', { refreshToken });

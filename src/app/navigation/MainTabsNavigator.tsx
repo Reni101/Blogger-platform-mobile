@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from './AppNavigation';
 import { BlogsScreen, ProfileScreen, QuizGameScreen } from '../../screens';
 import { AuthGuard, GameIcon, HeadsetIcon, useAppTheme, UserPen } from '../../shared';
-import { useMeQuery } from '../../entities/User';
+import { useMeQuery } from '../../entities/user';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 

@@ -6,7 +6,7 @@ import { AuthApi } from '../api/auth-api.ts';
 import type { ConfirmationBodyType } from '../api/authTypes.ts';
 import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';
 import type { DomainException } from '../../../shared';
-import { meQueryKey } from '../../../entities/User';
+import { meQueryKey } from '../../../entities/user';
 
 type RegistrationConfirmationResponse = Awaited<
   ReturnType<typeof AuthApi.registrationConfirmation>

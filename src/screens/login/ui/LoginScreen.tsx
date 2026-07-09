@@ -8,7 +8,6 @@ export function LoginScreen() {
   const navigation = useNavigation();
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createLoginScreenStyles);
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>

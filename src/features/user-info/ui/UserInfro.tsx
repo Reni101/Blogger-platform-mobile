@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { useMeQuery } from '../../../entities/User';
+import { useMeQuery } from '../../../entities/user';
 import { type AppThemeColors, useThemedStyles } from '../../../shared';
 
 const createUserInfoStyles = (colors: AppThemeColors) =>
@@ -52,7 +52,7 @@ export const UserInfo = () => {
   const styles = useThemedStyles(createUserInfoStyles);
   const { data } = useMeQuery();
 
-  const login = data?.data.login ?? 'User login';
+  const login = data?.data.login ?? 'user login';
   const email = data?.data.email ?? 'user@email.com';
 
   return (

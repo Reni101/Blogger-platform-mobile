@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { ProfileWidgetRowItem } from './renderProfileWidgetRow.tsx';
 import { ToggleTheme } from '../../../features/toggle-theme';
 import { ConfirmationEmailAction, Logout } from '../../../features/auth';
-import { useMeQuery } from '../../../entities/User';
+import { useMeQuery } from '../../../entities/user';
 
 export function useProfileFeatureItems(): ProfileWidgetRowItem[] {
   const { data: me } = useMeQuery();
