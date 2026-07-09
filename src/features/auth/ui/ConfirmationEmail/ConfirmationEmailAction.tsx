@@ -20,19 +20,19 @@ export const ConfirmationEmailAction = () => {
   const styles = useThemedStyles(createConfirmationEmailActionStyles);
 
   return (
-    <View style={styles.container}>
+    <Pressable
+      accessibilityLabel="Confirm email"
+      hitSlop={8}
+      onPress={() => navigation.navigate('confirmationEmail')}
+      style={({ pressed }) => [
+        styles.container,
+        pressed ? styles.iconButtonPressed : null,
+      ]}
+    >
       <Text style={styles.label}>Confirm email</Text>
-      <Pressable
-        accessibilityLabel="Confirm email"
-        hitSlop={8}
-        onPress={() => navigation.navigate('confirmationEmail')}
-        style={({ pressed }) => [
-          styles.iconButton,
-          pressed ? styles.iconButtonPressed : null,
-        ]}
-      >
-        <MailWarningIcon color={colors.iconPrimary} size={20} strokeWidth={2} />
-      </Pressable>
-    </View>
+      <View pointerEvents="none" style={styles.iconButton}>
+        <MailWarningIcon color={colors.warning} size={20} strokeWidth={2} />
+      </View>
+    </Pressable>
   );
 };

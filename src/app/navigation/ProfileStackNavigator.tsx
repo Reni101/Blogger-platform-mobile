@@ -5,7 +5,7 @@ import { DevicesScreen } from '../../screens/devices-screen/ui/DevicesScreen.tsx
 export type ProfileStackParamList = {
   profileHome: undefined;
   confirmationEmail: undefined;
-  devicesScreen: undefined;
+  devices: undefined;
 };
 
 const Stack = createNativeStackNavigator<ProfileStackParamList>();
@@ -25,8 +25,8 @@ export const ProfileStackNavigator = () => {
       />
       <Stack.Screen
         component={DevicesScreen}
-        name={'devicesScreen'}
-        options={{ title: 'Devices', headerShown: false }}
+        name={'devices'}
+        options={{ title: 'DevicesAction', headerShown: false }}
       />
     </Stack.Navigator>
   );

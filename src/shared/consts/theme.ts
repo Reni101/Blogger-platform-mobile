@@ -17,6 +17,7 @@ export type AppThemeColors = {
   accentContrast: string;
   danger: string;
   success: string;
+  warning: string;
   shadowSoft: string;
   shadowStrong: string;
   switchTrackOff: string;
@@ -47,6 +48,7 @@ export const APP_THEME_COLORS: ThemePalette = {
     accentContrast: '#007aff',
     danger: '#cb3a31',
     success: '#1f7a36',
+    warning: '#f59e0b',
     shadowSoft: '0 4px 12px rgba(28, 31, 46, 0.08)',
     shadowStrong: '0 10px 22px rgba(28, 31, 46, 0.28)',
     switchTrackOff: '#c9d1df',
@@ -73,6 +75,7 @@ export const APP_THEME_COLORS: ThemePalette = {
     accentContrast: '#60a5fa',
     danger: '#ff7b72',
     success: '#5ed889',
+    warning: '#fbbf24',
     shadowSoft: '0 4px 12px rgba(0, 0, 0, 0.35)',
     shadowStrong: '0 10px 22px rgba(0, 0, 0, 0.5)',
     switchTrackOff: '#3b4357',

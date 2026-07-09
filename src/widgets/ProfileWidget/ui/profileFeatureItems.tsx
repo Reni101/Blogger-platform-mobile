@@ -3,7 +3,7 @@ import { ProfileWidgetRowItem } from './renderProfileWidgetRow.tsx';
 import { ToggleTheme } from '../../../features/toggle-theme';
 import { ConfirmationEmailAction, Logout } from '../../../features/auth';
 import { useMeQuery } from '../../../entities/user';
-import { Devices } from '../../../features/user-info';
+import { DevicesAction } from '../../../features/user-info';
 
 export function useProfileFeatureItems(): ProfileWidgetRowItem[] {
   const { data: me } = useMeQuery();
@@ -16,7 +16,7 @@ export function useProfileFeatureItems(): ProfileWidgetRowItem[] {
       },
       {
         id: 'devices',
-        actionElement: <Devices />,
+        actionElement: <DevicesAction />,
       },
       {
         id: 'logout',

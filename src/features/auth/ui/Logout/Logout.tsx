@@ -30,21 +30,21 @@ export const Logout = () => {
 
   return (
     <>
-      <View style={styles.container}>
+      <Pressable
+        accessibilityLabel="Log out"
+        disabled={isPending}
+        hitSlop={8}
+        onPress={handleOpenConfirm}
+        style={({ pressed }) => [
+          styles.container,
+          pressed || isPending ? styles.iconButtonPressed : null,
+        ]}
+      >
         <Text style={styles.label}>Выйти</Text>
-        <Pressable
-          accessibilityLabel="Log out"
-          disabled={isPending}
-          hitSlop={8}
-          onPress={handleOpenConfirm}
-          style={({ pressed }) => [
-            styles.iconButton,
-            pressed || isPending ? styles.iconButtonPressed : null,
-          ]}
-        >
+        <View pointerEvents="none" style={styles.iconButton}>
           <LogoutIcon color={colors.danger} size={20} />
-        </Pressable>
-      </View>
+        </View>
+      </Pressable>
       <LogoutConfirmModal
         onClose={onClose}
         handleConfirmLogout={handleConfirmLogout}

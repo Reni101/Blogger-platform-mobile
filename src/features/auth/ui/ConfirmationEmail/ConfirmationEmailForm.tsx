@@ -78,7 +78,8 @@ export const ConfirmationEmailForm = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.infoText}>
-        A confirmation code was sent to your email {me?.data.email ?? ''}.
+        A confirmation code was sent to your email {me?.data.email ?? ''}{' '}
+        during registration.
       </Text>
 
       <Pressable

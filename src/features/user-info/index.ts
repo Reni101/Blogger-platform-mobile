@@ -1,2 +1,2 @@
 export { UserInfo } from './ui/UserInfro.tsx';
-export { Devices } from './ui/Devices/Devices.tsx';
+export { DevicesAction } from './ui/Devices/DevicesAction.tsx';
