@@ -8,26 +8,29 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import {
+  ConfirmationEmailScreen,
   ForgotPasswordScreen,
   LoginScreen,
   RegisterScreen,
 } from '../../screens';
 import { useAuthFlow } from '../../features/auth';
-import { useAppTheme } from '../../shared';
+import { AuthGuardHoc, StackHeader, useAppTheme } from '../../shared';
 import { MainTabsNavigator } from './MainTabsNavigator';
-import type { ProfileStackParamList } from './ProfileStackNavigator';
+import { DevicesScreen } from '../../screens/devices-screen/ui/DevicesScreen.tsx';
 
 export type MainTabParamList = {
   blogs: undefined;
   quizGame: undefined;
-  profile: NavigatorScreenParams<ProfileStackParamList> | undefined;
+  profile: undefined;
 };
 
 export type RootStackParamList = {
   login: undefined;
   register: undefined;
   forgotPassword: undefined;
-  mainTabs: undefined;
+  mainTabs: NavigatorScreenParams<MainTabParamList> | undefined;
+  confirmationEmail: undefined;
+  devices: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -103,10 +106,30 @@ export const AppNavigation = memo(() => {
           }}
         />
         <Stack.Screen
-          component={MainTabsNavigator}
+          component={AuthGuardHoc(MainTabsNavigator)}
           key={'mainTabs'}
           name={'mainTabs'}
           options={{ headerShown: false, animation: 'fade' }}
+        />
+        <Stack.Screen
+          component={AuthGuardHoc(ConfirmationEmailScreen)}
+          key={'confirmationEmail'}
+          name={'confirmationEmail'}
+          options={{
+            title: 'Confirm email',
+            animation: 'slide_from_right',
+            header: StackHeader,
+          }}
+        />
+        <Stack.Screen
+          component={AuthGuardHoc(DevicesScreen)}
+          key={'devices'}
+          name={'devices'}
+          options={{
+            title: 'Devices',
+            animation: 'slide_from_right',
+            header: StackHeader,
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

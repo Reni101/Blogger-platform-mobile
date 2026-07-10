@@ -1,4 +1,10 @@
-import { memo, type PropsWithChildren, useCallback, useEffect } from 'react';
+import {
+  type ComponentType,
+  memo,
+  type PropsWithChildren,
+  useCallback,
+  useEffect,
+} from 'react';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -10,7 +16,7 @@ type AuthGuardNavigation = NativeStackNavigationProp<
   'mainTabs'
 >;
 
-export const AuthGuard = memo(({ children }: PropsWithChildren) => {
+const AuthGuard = memo(({ children }: PropsWithChildren) => {
   const navigation = useNavigation<AuthGuardNavigation>();
   // const [status, setStatus] = useState<AuthStatus>('checking');
 
@@ -47,3 +53,10 @@ export const AuthGuard = memo(({ children }: PropsWithChildren) => {
 
   return children;
 });
+
+export const AuthGuardHoc = <P extends object>(Screen: ComponentType<P>) =>
+  memo((props: P) => (
+    <AuthGuard>
+      <Screen {...props} />
+    </AuthGuard>
+  ));

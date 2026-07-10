@@ -1,17 +1,17 @@
 import { memo } from 'react';
 import { Pressable, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   TabletSmartphoneIcon,
   useAppTheme,
   useThemedStyles,
 } from '../../../../shared';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { ProfileStackParamList } from '../../../../app/navigation/ProfileStackNavigator.tsx';
+import type { RootStackParamList } from '../../../../app/navigation/AppNavigation.tsx';
 import { createDevicesActionStyles } from './DevicesAction.styles.ts';
 
 type ConfirmationEmailNavigation = NativeStackNavigationProp<
-  ProfileStackParamList,
+  RootStackParamList,
   'devices'
 >;
 

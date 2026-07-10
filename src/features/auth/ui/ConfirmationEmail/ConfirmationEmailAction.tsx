@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { ProfileStackParamList } from '../../../../app/navigation/ProfileStackNavigator.tsx';
+import type { RootStackParamList } from '../../../../app/navigation/AppNavigation.tsx';
 import {
   MailWarningIcon,
   useAppTheme,
@@ -11,7 +11,7 @@ import {
 import { createConfirmationEmailActionStyles } from './ConfirmationEmailAction.styles.ts';
 
 type ConfirmationEmailNavigation = NativeStackNavigationProp<
-  ProfileStackParamList,
+  RootStackParamList,
   'confirmationEmail'
 >;
 

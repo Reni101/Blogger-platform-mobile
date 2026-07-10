@@ -1,1 +1,1 @@
-export { AuthGuard } from './auth-guard.tsx';
+export { AuthGuardHoc } from './auth-guard.tsx';
