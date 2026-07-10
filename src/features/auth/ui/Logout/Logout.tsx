@@ -40,7 +40,7 @@ export const Logout = memo(() => {
           pressed || isPending ? styles.iconButtonPressed : null,
         ]}
       >
-        <Text style={styles.label}>Выйти</Text>
+        <Text style={styles.label}>Logout</Text>
         <View pointerEvents="none" style={styles.iconButton}>
           <LogoutIcon color={colors.danger} size={20} />
         </View>
