@@ -4,9 +4,8 @@ import { type AppThemeColors } from '../../../shared';
 export const createDevicesScreenStyles = (colors: AppThemeColors) =>
   StyleSheet.create({
     container: {
-      alignItems: 'center',
       backgroundColor: colors.screenBackground,
       flex: 1,
-      justifyContent: 'center',
+      width: '100%',
     },
   });

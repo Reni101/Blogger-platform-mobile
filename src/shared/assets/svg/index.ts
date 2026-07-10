@@ -12,4 +12,5 @@ export { GameIcon } from './game-icon.tsx';
 export { MailWarningIcon } from './mail-warning-icon.tsx';
 export { AppleIcon } from './apple-icon.tsx';
 export { AndroidIcon } from './android-icon.tsx';
+export { BrowserIcon } from './browser-icon.tsx';
 export { TabletSmartphoneIcon } from './tablet-smartphone-icon.tsx';
