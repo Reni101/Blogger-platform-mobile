@@ -46,7 +46,6 @@ export const MainTabsNavigator = memo(() => {
               <HeadsetIcon color={color ?? colors.tabBarInactive} size={size} />
             ),
             title: 'Blogs',
-            animation: 'fade',
           }}
         />
         <Tab.Screen
@@ -57,7 +56,6 @@ export const MainTabsNavigator = memo(() => {
               <GameIcon color={color ?? colors.tabBarInactive} size={size} />
             ),
             title: 'Quiz game',
-            animation: 'fade',
           }}
         />
         <Tab.Screen
@@ -69,7 +67,6 @@ export const MainTabsNavigator = memo(() => {
             ),
             title: 'Profile',
             headerShown: false,
-            animation: 'fade',
           }}
         />
       </Tab.Navigator>

@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StackHeader } from '../../shared';
 import { ConfirmationEmailScreen, ProfileScreen } from '../../screens';
 import { DevicesScreen } from '../../screens/devices-screen/ui/DevicesScreen.tsx';
 
@@ -17,24 +18,24 @@ export const ProfileStackNavigator = memo(() => {
       <Stack.Screen
         component={ProfileScreen}
         name={'profileHome'}
-        options={{ title: 'Profile', headerShown: false,animation:'fade' }}
+        options={{ title: 'Profile', headerShown: false, animation: 'fade' }}
       />
       <Stack.Screen
         component={ConfirmationEmailScreen}
         name={'confirmationEmail'}
         options={{
           title: 'Confirm email',
-          headerShown: false,
-          animation: 'slide_from_right',
+          animation: 'slide_from_right' as const,
+          header: StackHeader,
         }}
       />
       <Stack.Screen
         component={DevicesScreen}
         name={'devices'}
         options={{
-          title: 'DevicesAction',
-          headerShown: false,
-          animation: 'slide_from_right',
+          title: 'Devices',
+          animation: 'slide_from_right' as const,
+          header: StackHeader,
         }}
       />
     </Stack.Navigator>

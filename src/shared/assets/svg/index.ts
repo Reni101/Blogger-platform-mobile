@@ -1,3 +1,4 @@
+export { ArrowLeftIcon } from './arrow-left-icon.tsx';
 export { AudioLines } from './audio-lines.tsx';
 export { ListVideo } from './list-video.tsx';
 export { UserPen } from './user-pen.tsx';
