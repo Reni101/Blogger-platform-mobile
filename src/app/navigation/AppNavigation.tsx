@@ -109,7 +109,7 @@ export const AppNavigation = memo(() => {
           component={AuthGuardHoc(MainTabsNavigator)}
           key={'mainTabs'}
           name={'mainTabs'}
-          options={{ headerShown: false, animation: 'fade' }}
+          options={{ headerShown: false, animation: 'fade', }}
         />
         <Stack.Screen
           component={AuthGuardHoc(ConfirmationEmailScreen)}

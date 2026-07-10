@@ -15,13 +15,9 @@ export const MainTabsNavigator = memo(() => {
       initialRouteName="blogs"
       screenOptions={{
         headerTitleAlign: 'center',
-        headerStyle: {
-          backgroundColor: colors.tabBarBackground,
-        },
+        headerStyle: { backgroundColor: colors.tabBarBackground },
         headerTintColor: colors.textPrimary,
-        sceneStyle: {
-          backgroundColor: colors.screenBackground,
-        },
+        sceneStyle: { backgroundColor: colors.screenBackground },
         tabBarActiveTintColor: colors.tabBarActive,
         tabBarInactiveTintColor: colors.tabBarInactive,
         tabBarStyle: {
@@ -38,6 +34,7 @@ export const MainTabsNavigator = memo(() => {
             <HeadsetIcon color={color ?? colors.tabBarInactive} size={size} />
           ),
           title: 'Blogs',
+
         }}
       />
       <Tab.Screen

@@ -7,8 +7,8 @@ export const getDeviceName = () => {
   const model = getModel().trim();
 
   if (APPLE_BRANDS.has(brand.toLowerCase())) {
-    return `Apple ${model}`;
+    return `apple ${model}`;
   }
 
-  return `Android ${brand} ${model}`.replace(/\s+/g, ' ').trim();
+  return `android ${brand} ${model}`.replace(/\s+/g, ' ').trim();
 };

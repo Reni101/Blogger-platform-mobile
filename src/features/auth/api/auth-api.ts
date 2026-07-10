@@ -18,7 +18,11 @@ export class AuthApi {
     });
   }
   static async logOut(refreshToken: string) {
-    return api.post('/auth/logout', { refreshToken });
+    return api.post(
+      '/auth/logout',
+      {},
+      { headers: { 'x-mobile-refresh-token': refreshToken } },
+    );
   }
 
   static async registration(body: RegistrationBodyType) {

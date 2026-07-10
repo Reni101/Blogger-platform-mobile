@@ -5,11 +5,7 @@ import axios, {
 } from 'axios';
 import { Platform } from 'react-native';
 import { API_URL2 } from '@env';
-import {
-  AsyncStorage,
-  notifyAuthSessionExpired,
-  SecureStorage,
-} from '../lib';
+import { AsyncStorage, notifyAuthSessionExpired, SecureStorage } from '../lib';
 
 type RefreshTokenResponse = {
   accessToken: string;
@@ -92,8 +88,8 @@ async function refreshAccessToken() {
 
   const { data } = await axios.post<RefreshTokenResponse>(
     `${API_BASE_URL}auth/refresh-token`,
-    { refreshToken },
-    { timeout: 15_000 },
+    {},
+    { timeout: 15_000, headers: { 'x-mobile-refresh-token': refreshToken } },
   );
 
   await AsyncStorage.set('accessToken', data.accessToken);
@@ -111,7 +107,9 @@ async function clearAuthTokens() {
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as RetryableAxiosRequestConfig | undefined;
+    const originalRequest = error.config as
+      | RetryableAxiosRequestConfig
+      | undefined;
 
     if (
       !originalRequest ||
