@@ -13,7 +13,9 @@ export const OtherDevices = memo(({ devices }: OtherDevicesProps) => {
   const styles = useThemedStyles(createOtherDevicesStyles);
 
   const renderItem = useCallback(
-    ({ item }: { item: DeviceType }) => <DeviceRow device={item} />,
+    ({ item }: { item: DeviceType }) => (
+      <DeviceRow device={item} logoutVariant="other" />
+    ),
     [],
   );
 

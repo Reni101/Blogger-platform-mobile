@@ -16,7 +16,7 @@ export const MainDevice = memo(({ device }: MainDeviceProps) => {
     <View style={styles.container}>
       <Text style={styles.sectionTitle}>This device</Text>
       <View style={styles.card}>
-        <DeviceRow device={device} />
+        <DeviceRow device={device} logoutVariant="main" />
       </View>
     </View>
   );
