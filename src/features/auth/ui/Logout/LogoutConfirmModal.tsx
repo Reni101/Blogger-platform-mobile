@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Modal, ModalPropsType, useThemedStyles } from '../../../../shared';
 import { Pressable, Text, View } from 'react-native';
 import { createLogoutStyles } from './Logout.styles.ts';
@@ -7,7 +8,7 @@ type Props = {
   handleConfirmLogout: () => void;
 } & ModalPropsType;
 
-export const LogoutConfirmModal = (props: Props) => {
+export const LogoutConfirmModal = memo((props: Props) => {
   const { onClose, isVisible, isPending, handleConfirmLogout } = props;
   const styles = useThemedStyles(createLogoutStyles);
 
@@ -46,4 +47,4 @@ export const LogoutConfirmModal = (props: Props) => {
       </View>
     </Modal>
   );
-};
+});

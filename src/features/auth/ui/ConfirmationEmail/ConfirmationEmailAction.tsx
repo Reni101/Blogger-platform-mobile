@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -14,7 +15,7 @@ type ConfirmationEmailNavigation = NativeStackNavigationProp<
   'confirmationEmail'
 >;
 
-export const ConfirmationEmailAction = () => {
+export const ConfirmationEmailAction = memo(() => {
   const navigation = useNavigation<ConfirmationEmailNavigation>();
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createConfirmationEmailActionStyles);
@@ -35,4 +36,4 @@ export const ConfirmationEmailAction = () => {
       </View>
     </Pressable>
   );
-};
+});

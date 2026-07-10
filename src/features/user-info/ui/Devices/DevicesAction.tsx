@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import {
   TabletSmartphoneIcon,
@@ -14,7 +15,7 @@ type ConfirmationEmailNavigation = NativeStackNavigationProp<
   'devices'
 >;
 
-export const DevicesAction = () => {
+export const DevicesAction = memo(() => {
   const navigation = useNavigation<ConfirmationEmailNavigation>();
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createDevicesActionStyles);
@@ -39,4 +40,4 @@ export const DevicesAction = () => {
       </View>
     </Pressable>
   );
-};
+});

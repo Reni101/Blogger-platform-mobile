@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { Pressable, Text, TextInput, View } from 'react-native';
@@ -16,7 +17,7 @@ import {
 import { createConfirmationEmailStyles } from './ConfirmationEmailForm.styles.ts';
 import { getConfirmationCodeErrorMessage } from '../../lib/getConfirmationCodeErrorMessage.ts';
 
-export const ConfirmationEmailForm = () => {
+export const ConfirmationEmailForm = memo(() => {
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createConfirmationEmailStyles);
   const { data: me } = useMeQuery();
@@ -148,4 +149,4 @@ export const ConfirmationEmailForm = () => {
       </Pressable>
     </View>
   );
-};
+});

@@ -1,5 +1,5 @@
 import { Controller, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import { useLoginMutation } from '../../hooks/useLoginMutation.ts';
@@ -25,7 +25,7 @@ type LoginFormProps = {
   onSignUpPress: () => void;
 };
 
-export const LoginForm = ({
+export const LoginForm = memo(({
   onForgotPasswordPress,
   onSignUpPress,
 }: LoginFormProps) => {
@@ -170,4 +170,4 @@ export const LoginForm = ({
       </View>
     </View>
   );
-};
+});

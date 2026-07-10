@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import {
   type NewPasswordFormValues,
@@ -40,7 +40,9 @@ function isNewPasswordField(field: string): field is keyof NewPasswordFormValues
   return (NEW_PASSWORD_FIELDS as string[]).includes(field);
 }
 
-export function PasswordRecovery({ onSignInPress }: PasswordRecoveryProps) {
+export const PasswordRecovery = memo(({
+  onSignInPress,
+}: PasswordRecoveryProps) => {
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createPasswordRecoveryStyles);
   const [isRecoveryStepVisible, setIsRecoveryStepVisible] = useState(false);
@@ -319,4 +321,4 @@ export function PasswordRecovery({ onSignInPress }: PasswordRecoveryProps) {
       </View>
     </View>
   );
-}
+});

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useMeQuery } from '../../../entities/user';
 import { type AppThemeColors, useThemedStyles } from '../../../shared';
@@ -48,7 +49,7 @@ const createUserInfoStyles = (colors: AppThemeColors) =>
     },
   });
 
-export const UserInfo = () => {
+export const UserInfo = memo(() => {
   const styles = useThemedStyles(createUserInfoStyles);
   const { data } = useMeQuery();
 
@@ -71,4 +72,4 @@ export const UserInfo = () => {
       </View>
     </View>
   );
-};
+});

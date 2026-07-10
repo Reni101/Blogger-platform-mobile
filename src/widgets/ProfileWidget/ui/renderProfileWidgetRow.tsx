@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react';
+import { memo, type ReactElement } from 'react';
 import {
   type ListRenderItemInfo,
   type StyleProp,
@@ -21,8 +21,20 @@ type RowStyles = {
   row: StyleProp<ViewStyle>;
 };
 
+type ProfileWidgetRowProps = {
+  item: ProfileWidgetRowItem;
+  rowStyle: StyleProp<ViewStyle>;
+};
+
+const ProfileWidgetRow = memo(({
+  item,
+  rowStyle,
+}: ProfileWidgetRowProps) => {
+  return <View style={rowStyle}>{item.actionElement}</View>;
+});
+
 export const renderProfileWidgetRow =
   (styles: RowStyles) =>
   ({ item }: ListRenderItemInfo<ProfileWidgetRowItem>) => {
-    return <View style={styles.row}>{item.actionElement}</View>;
+    return <ProfileWidgetRow item={item} rowStyle={styles.row} />;
   };

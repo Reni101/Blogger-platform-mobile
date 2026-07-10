@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { HeadsetIcon, useAppTheme, useThemedStyles } from '../../../shared';
@@ -8,7 +9,7 @@ import type { RootStackParamList } from '../../../app/navigation/AppNavigation.t
 
 type RegisterNavigation = NativeStackNavigationProp<RootStackParamList, 'register'>;
 
-export function RegisterScreen() {
+export const RegisterScreen = memo(() => {
   const navigation = useNavigation<RegisterNavigation>();
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createRegisterScreenStyles);
@@ -27,4 +28,4 @@ export function RegisterScreen() {
       <RegistrationForm onSignInPress={() => navigation.replace('login')} />
     </View>
   );
-}
+});

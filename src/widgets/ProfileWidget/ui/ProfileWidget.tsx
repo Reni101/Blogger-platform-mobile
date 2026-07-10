@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { FlatList, View } from 'react-native';
 import { useThemedStyles } from '../../../shared';
 import { createProfileWidgetStyles } from './ProfileWidget.styles';
@@ -5,7 +6,7 @@ import { renderProfileWidgetRow } from './renderProfileWidgetRow.tsx';
 import { useProfileFeatureItems } from './profileFeatureItems.tsx';
 import { UserInfo } from '../../../features/user-info';
 
-export const ProfileWidget = () => {
+export const ProfileWidget = memo(() => {
   const styles = useThemedStyles(createProfileWidgetStyles);
   const profileFeatureItems = useProfileFeatureItems();
   return (
@@ -24,4 +25,4 @@ export const ProfileWidget = () => {
       </View>
     </View>
   );
-};
+});

@@ -1,9 +1,10 @@
-import { Switch, Text, View } from 'react-native';
+import { memo } from 'react';
+import { Text, View } from 'react-native';
 import { createToggleThemeStyles } from './ToggleTheme.styles.ts';
-import { useAppTheme, useThemedStyles } from '../../../shared';
+import { Switch, useAppTheme, useThemedStyles } from '../../../shared';
 
-export function ToggleTheme() {
-  const { colors, mode, setThemeMode } = useAppTheme();
+export const ToggleTheme = memo(() => {
+  const { mode, setThemeMode } = useAppTheme();
   const styles = useThemedStyles(createToggleThemeStyles);
   const isDarkMode = mode === 'dark';
 
@@ -11,14 +12,9 @@ export function ToggleTheme() {
     <View style={styles.container}>
       <Text style={styles.label}>{isDarkMode ? 'Dark theme' : 'Light theme'}</Text>
       <Switch
-        onValueChange={value => setThemeMode(value ? 'dark' : 'light')}
-        trackColor={{
-          false: colors.switchTrackOff,
-          true: colors.switchTrackOn,
-        }}
-        thumbColor={colors.switchThumb}
+        onValueChange={nextValue => setThemeMode(nextValue ? 'dark' : 'light')}
         value={isDarkMode}
       />
     </View>
   );
-}
+});

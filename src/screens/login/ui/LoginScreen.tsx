@@ -1,10 +1,11 @@
+import { memo } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createLoginScreenStyles } from './LoginScreen.styles';
 import { LoginForm } from '../../../features/auth';
 import { HeadsetIcon, useAppTheme, useThemedStyles } from '../../../shared';
 
-export function LoginScreen() {
+export const LoginScreen = memo(() => {
   const navigation = useNavigation();
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createLoginScreenStyles);
@@ -27,4 +28,4 @@ export function LoginScreen() {
       />
     </View>
   );
-}
+});

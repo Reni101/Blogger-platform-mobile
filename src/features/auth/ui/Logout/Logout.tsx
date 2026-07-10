@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { useLogoutMutation } from '../../hooks/useLogoutMutation.ts';
 import {
@@ -9,7 +9,7 @@ import {
 import { createLogoutStyles } from './Logout.styles.ts';
 import { LogoutConfirmModal } from './LogoutConfirmModal.tsx';
 
-export const Logout = () => {
+export const Logout = memo(() => {
   const [isVisible, setIsVisible] = useState(false);
   const { mutate, isPending } = useLogoutMutation();
   const { colors } = useAppTheme();
@@ -53,4 +53,4 @@ export const Logout = () => {
       />
     </>
   );
-};
+});

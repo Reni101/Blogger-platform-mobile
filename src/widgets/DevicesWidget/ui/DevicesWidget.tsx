@@ -1,3 +1,5 @@
-export const DevicesWidget = () => {
+import { memo } from 'react';
+
+export const DevicesWidget = memo(() => {
   return <></>;
-};
+});

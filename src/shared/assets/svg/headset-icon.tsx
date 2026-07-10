@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
 type PropsType = {
@@ -6,7 +7,7 @@ type PropsType = {
   strokeWidth?: number;
 };
 
-export const HeadsetIcon = (props: PropsType) => {
+export const HeadsetIcon = memo( (props: PropsType)=> {
   const { color = '#000000', size = 24, strokeWidth = 2 } = props;
   return (
     <Svg
@@ -31,4 +32,4 @@ export const HeadsetIcon = (props: PropsType) => {
       />
     </Svg>
   );
-};
+});

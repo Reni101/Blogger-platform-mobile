@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { NavigatorScreenParams } from '@react-navigation/native';
 import {
   DarkTheme,
@@ -41,7 +42,7 @@ const createAppNavigationStyles = (backgroundColor: string) =>
     },
   });
 
-export function AppNavigation() {
+export const AppNavigation = memo(() => {
   const { colors, mode } = useAppTheme();
   const { initialRouteName, isBootstrapping } = useAuthFlow();
   const styles = createAppNavigationStyles(colors.screenBackground);
@@ -75,27 +76,39 @@ export function AppNavigation() {
           component={LoginScreen}
           key={'login'}
           name={'login'}
-          options={{ title: 'Login', headerShown: false }}
+          options={{
+            title: 'Login',
+            headerShown: false,
+            animation: 'fade',
+          }}
         />
         <Stack.Screen
           component={RegisterScreen}
           key={'register'}
           name={'register'}
-          options={{ title: 'Sign Up', headerShown: false }}
+          options={{
+            title: 'Sign Up',
+            headerShown: false,
+            animation: 'slide_from_right',
+          }}
         />
         <Stack.Screen
           component={ForgotPasswordScreen}
           key={'forgotPassword'}
           name={'forgotPassword'}
-          options={{ title: 'Forgot password', headerShown: false }}
+          options={{
+            title: 'Forgot password',
+            headerShown: false,
+            animation: 'slide_from_right',
+          }}
         />
         <Stack.Screen
           component={MainTabsNavigator}
           key={'mainTabs'}
           name={'mainTabs'}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, animation: 'fade' }}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+});

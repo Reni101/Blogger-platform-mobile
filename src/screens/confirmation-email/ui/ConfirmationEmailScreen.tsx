@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Text, View } from 'react-native';
 import { ConfirmationEmailForm } from '../../../features/auth';
 import {
@@ -7,7 +8,7 @@ import {
 } from '../../../shared';
 import { createConfirmationEmailScreenStyles } from './ConfirmationEmailScreen.styles.ts';
 
-export function ConfirmationEmailScreen() {
+export const ConfirmationEmailScreen = memo(() => {
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createConfirmationEmailScreenStyles);
 
@@ -32,4 +33,4 @@ export function ConfirmationEmailScreen() {
       </View>
     </View>
   );
-}
+});

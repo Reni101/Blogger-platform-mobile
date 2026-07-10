@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
 type PropsType = {
@@ -6,7 +7,7 @@ type PropsType = {
   strokeWidth?: number;
 };
 
-export const ListVideo = (props: PropsType) => {
+export const ListVideo = memo((props: PropsType) =>{
   const { color = '#000000', size = 24, strokeWidth = 2 } = props;
   return (
     <Svg fill="none" height={size} viewBox="0 0 24 24" width={size}>
@@ -40,4 +41,4 @@ export const ListVideo = (props: PropsType) => {
       />
     </Svg>
   );
-};
+});

@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { Text, View } from 'react-native';
 import { useThemedStyles } from '../../../shared';
 import { createBlogsScreenStyles } from './BlogsScreen.styles.ts';
 
-export function BlogsScreen() {
+export const BlogsScreen = memo(() => {
   const styles = useThemedStyles(createBlogsScreenStyles);
 
   return (
@@ -10,4 +11,4 @@ export function BlogsScreen() {
       <Text style={styles.title}>blogs screen</Text>
     </View>
   );
-}
+});

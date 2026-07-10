@@ -1,13 +1,20 @@
+import { memo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { MainTabParamList } from './AppNavigation';
 import { BlogsScreen, QuizGameScreen } from '../../screens';
-import { AuthGuard, GameIcon, HeadsetIcon, useAppTheme, UserPen } from '../../shared';
+import {
+  AuthGuard,
+  GameIcon,
+  HeadsetIcon,
+  useAppTheme,
+  UserPen,
+} from '../../shared';
 import { useMeQuery } from '../../entities/user';
 import { ProfileStackNavigator } from './ProfileStackNavigator';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-export const MainTabsNavigator = () => {
+export const MainTabsNavigator = memo(() => {
   const { colors } = useAppTheme();
   useMeQuery();
   return (
@@ -39,6 +46,7 @@ export const MainTabsNavigator = () => {
               <HeadsetIcon color={color ?? colors.tabBarInactive} size={size} />
             ),
             title: 'Blogs',
+            animation: 'fade',
           }}
         />
         <Tab.Screen
@@ -49,6 +57,7 @@ export const MainTabsNavigator = () => {
               <GameIcon color={color ?? colors.tabBarInactive} size={size} />
             ),
             title: 'Quiz game',
+            animation: 'fade',
           }}
         />
         <Tab.Screen
@@ -60,9 +69,10 @@ export const MainTabsNavigator = () => {
             ),
             title: 'Profile',
             headerShown: false,
+            animation: 'fade',
           }}
         />
       </Tab.Navigator>
     </AuthGuard>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { type PropsWithChildren, useCallback, useEffect } from 'react';
+import { memo, type PropsWithChildren, useCallback, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -10,7 +10,7 @@ type AuthGuardNavigation = NativeStackNavigationProp<
   'mainTabs'
 >;
 
-export function AuthGuard({ children }: PropsWithChildren) {
+export const AuthGuard = memo(({ children }: PropsWithChildren) => {
   const navigation = useNavigation<AuthGuardNavigation>();
   // const [status, setStatus] = useState<AuthStatus>('checking');
 
@@ -46,4 +46,4 @@ export function AuthGuard({ children }: PropsWithChildren) {
   }, [redirectToLogin]);
 
   return children;
-}
+});

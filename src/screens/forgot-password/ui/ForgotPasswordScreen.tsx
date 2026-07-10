@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { HeadsetIcon, useAppTheme, useThemedStyles } from '../../../shared';
@@ -11,7 +12,7 @@ type ForgotPasswordNavigation = NativeStackNavigationProp<
   'forgotPassword'
 >;
 
-export function ForgotPasswordScreen() {
+export const ForgotPasswordScreen = memo(() => {
   const navigation = useNavigation<ForgotPasswordNavigation>();
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createForgotPasswordScreenStyles);
@@ -31,4 +32,4 @@ export function ForgotPasswordScreen() {
       <PasswordRecovery onSignInPress={() => navigation.replace('login')} />
     </View>
   );
-}
+});

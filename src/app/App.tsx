@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { StatusBar } from 'react-native';
 import { AppProviders } from './providers/AppProviders.tsx';
 import { AppNavigation } from './navigation/AppNavigation.tsx';
 import { useAppTheme } from '../shared';
 
-function AppContent() {
+const AppContent = memo(() => {
   const { mode } = useAppTheme();
 
   return (
@@ -12,7 +13,7 @@ function AppContent() {
       <AppNavigation />
     </>
   );
-}
+});
 
 export function App() {
   return (

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Svg, { Circle, Path } from 'react-native-svg';
 
 type PropsType = {
@@ -5,7 +6,7 @@ type PropsType = {
   size?: number;
   strokeWidth?: number;
 };
-export const PasswordIcon = (props: PropsType) => {
+export const PasswordIcon = memo( (props: PropsType)=> {
   const { color = '#000000', size = 24, strokeWidth = 2 } = props;
   return (
     <Svg
@@ -26,4 +27,4 @@ export const PasswordIcon = (props: PropsType) => {
       <Circle cx={16.5} cy={7.5} r={0.5} fill="currentColor" />
     </Svg>
   );
-};
+});

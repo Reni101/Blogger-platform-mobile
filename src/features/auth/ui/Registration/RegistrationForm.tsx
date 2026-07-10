@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import {
   EyeIcon,
@@ -32,7 +32,9 @@ function isFormField(field: string): field is keyof RegistrationFormValues {
   return (FORM_FIELDS as string[]).includes(field);
 }
 
-export const RegistrationForm = ({ onSignInPress }: RegistrationFormProps) => {
+export const RegistrationForm = memo(({
+  onSignInPress,
+}: RegistrationFormProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { colors } = useAppTheme();
   const styles = useThemedStyles(createRegistrationFormStyles);
@@ -210,4 +212,4 @@ export const RegistrationForm = ({ onSignInPress }: RegistrationFormProps) => {
       </View>
     </View>
   );
-};
+});

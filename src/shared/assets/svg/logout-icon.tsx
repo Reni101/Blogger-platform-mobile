@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
 type PropsType = {
@@ -6,7 +7,7 @@ type PropsType = {
   strokeWidth?: number;
 };
 
-export const LogoutIcon = (props: PropsType) => {
+export const LogoutIcon = memo((props: PropsType) => {
   const { color = '#000000', size = 24, strokeWidth = 2 } = props;
   return (
     <Svg
@@ -27,4 +28,4 @@ export const LogoutIcon = (props: PropsType) => {
       />
     </Svg>
   );
-};
+});

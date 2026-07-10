@@ -1,4 +1,4 @@
-import { type ComponentProps, type PropsWithChildren } from 'react';
+import { memo, type ComponentProps, type PropsWithChildren } from 'react';
 import {
   Modal as RNModal,
   Pressable,
@@ -13,7 +13,12 @@ type ModalProps = PropsWithChildren<
   }
 >;
 
-export function Modal({ visible, onClose, children, ...modalProps }: ModalProps) {
+export const Modal = memo(({
+  visible,
+  onClose,
+  children,
+  ...modalProps
+}: ModalProps) => {
   const styles = useThemedStyles(createModalStyles);
 
   return (
@@ -35,4 +40,4 @@ export function Modal({ visible, onClose, children, ...modalProps }: ModalProps)
       </View>
     </RNModal>
   );
-}
+});

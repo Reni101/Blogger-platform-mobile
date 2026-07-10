@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
 type PropsType = {
@@ -6,7 +7,7 @@ type PropsType = {
   strokeWidth?: number;
 };
 
-export const AppleIcon = (props: PropsType) => {
+export const AppleIcon = memo((props: PropsType) => {
   const { color = '#000000', size = 24, strokeWidth = 2 } = props;
   return (
     <Svg width={size} height={size} viewBox="0 0 814 1000" {...props}>
@@ -18,4 +19,4 @@ export const AppleIcon = (props: PropsType) => {
       />
     </Svg>
   );
-};
+});
