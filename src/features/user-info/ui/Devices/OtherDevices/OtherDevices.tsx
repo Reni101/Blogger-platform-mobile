@@ -1,8 +1,8 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { useThemedStyles } from '../../../../../shared';
 import type { DeviceType } from '../../../model/types/DeviceType.ts';
-import { DeviceRow } from '../DeviceRow.tsx';
+import { OtherDeviceItem } from './OtherDeviceItem.tsx';
 import { createOtherDevicesStyles } from './OtherDevices.styles.ts';
 
 type OtherDevicesProps = {
@@ -11,20 +11,6 @@ type OtherDevicesProps = {
 
 export const OtherDevices = memo(({ devices }: OtherDevicesProps) => {
   const styles = useThemedStyles(createOtherDevicesStyles);
-
-  const renderItem = useCallback(
-    ({ item }: { item: DeviceType }) => (
-      <DeviceRow device={item} logoutVariant="other" />
-    ),
-    [],
-  );
-
-  const keyExtractor = useCallback((item: DeviceType) => item.deviceId, []);
-
-  const ItemSeparatorComponent = useCallback(
-    () => <View style={styles.separator} />,
-    [styles.separator],
-  );
 
   if (devices.length === 0) {
     return null;
@@ -36,11 +22,10 @@ export const OtherDevices = memo(({ devices }: OtherDevicesProps) => {
       <View style={styles.card}>
         <FlatList
           data={devices}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          ItemSeparatorComponent={ItemSeparatorComponent}
-          scrollEnabled={false}
+          keyExtractor={(item) => item.deviceId}
           showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          renderItem={({ item }) => <OtherDeviceItem device={item} />}
         />
       </View>
     </View>

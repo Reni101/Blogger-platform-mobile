@@ -3,8 +3,6 @@ import { View } from 'react-native';
 import {
   MainDevice,
   OtherDevices,
-  splitDevices,
-  useCurrentDeviceId,
   useDevicesQuery,
 } from '../../../features/user-info';
 import { Spinner, useThemedStyles } from '../../../shared';
@@ -12,7 +10,6 @@ import { createDevicesWidgetStyles } from './DevicesWidget.styles.ts';
 
 export const DevicesWidget = memo(() => {
   const styles = useThemedStyles(createDevicesWidgetStyles);
-  const currentDeviceId = useCurrentDeviceId();
   const { data, isPending } = useDevicesQuery();
 
   if (isPending) {
@@ -23,8 +20,8 @@ export const DevicesWidget = memo(() => {
     );
   }
 
-  const devices = data?.data ?? [];
-  const { mainDevice, otherDevices } = splitDevices(devices, currentDeviceId);
+  const mainDevice = data?.mainDevice ?? null;
+  const otherDevices = data?.otherDevices ?? [];
 
   return (
     <View style={styles.container}>

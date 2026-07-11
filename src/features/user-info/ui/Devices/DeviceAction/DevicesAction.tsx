@@ -6,8 +6,8 @@ import {
   TabletSmartphoneIcon,
   useAppTheme,
   useThemedStyles,
-} from '../../../../shared';
-import type { RootStackParamList } from '../../../../app/navigation/AppNavigation.tsx';
+} from '../../../../../shared';
+import type { RootStackParamList } from '../../../../../app/navigation/AppNavigation.tsx';
 import { createDevicesActionStyles } from './DevicesAction.styles.ts';
 
 type ConfirmationEmailNavigation = NativeStackNavigationProp<
@@ -22,7 +22,6 @@ export const DevicesAction = memo(() => {
 
   return (
     <Pressable
-      accessibilityLabel="Confirm email"
       hitSlop={8}
       onPress={() => navigation.navigate('devices')}
       style={({ pressed }) => [

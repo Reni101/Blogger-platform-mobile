@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { type AppThemeColors } from '../../../../shared';
+import { type AppThemeColors } from '../../../../../shared';
 
 export const createDevicesActionStyles = (colors: AppThemeColors) =>
   StyleSheet.create({

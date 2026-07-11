@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { type AppThemeColors } from '../../../../shared';
+import { type AppThemeColors } from '../../../../../shared';
 
-export const createDeviceLogoutActionStyles = (colors: AppThemeColors) =>
+export const createOtherDeviceLogoutActionStyles = (colors: AppThemeColors) =>
   StyleSheet.create({
     container: {
       alignItems: 'center',

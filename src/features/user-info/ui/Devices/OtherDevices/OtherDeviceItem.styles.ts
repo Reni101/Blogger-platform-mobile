@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
-import { type AppThemeColors } from '../../../../shared';
+import { type AppThemeColors } from '../../../../../shared';
 
-export const createDeviceRowStyles = (colors: AppThemeColors) =>
+export const createOtherDeviceItemStyles = (colors: AppThemeColors) =>
   StyleSheet.create({
-    container: {
+    row: {
       alignItems: 'center',
       flexDirection: 'row',
       gap: 12,
