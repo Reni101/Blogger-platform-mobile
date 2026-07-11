@@ -7,7 +7,7 @@ import Animated, {
   withRepeat,
   withTiming,
 } from 'react-native-reanimated';
-import { useAppTheme } from '../../lib';
+import { useAppTheme } from '../../hooks';
 import {
   getSegmentOpacities,
   resolveSpinnerSize,

@@ -4,7 +4,7 @@ import {
   Pressable,
   View,
 } from 'react-native';
-import { useThemedStyles } from '../../lib';
+import { useThemedStyles } from '../../hooks';
 import { createModalStyles } from './Modal.styles.ts';
 
 type ModalProps = PropsWithChildren<

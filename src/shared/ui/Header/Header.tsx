@@ -3,7 +3,7 @@ import { Pressable, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ArrowLeftIcon } from '../../assets/svg/arrow-left-icon.tsx';
-import { useAppTheme, useThemedStyles } from '../../lib';
+import { useAppTheme, useThemedStyles } from '../../hooks';
 import { createHeaderStyles } from './Header.styles.ts';
 
 type HeaderProps = {
