@@ -6,6 +6,9 @@ import {
   useState,
 } from 'react';
 import { SecureStorage } from '../../shared';
+import { meQueryKey } from '../../entities/user';
+import { queryClient } from './query-client.ts';
+import { UserApi } from '../../entities/user/api/user-api.ts';
 
 type InitContextType = {
   isLoading: boolean;
@@ -24,6 +27,10 @@ export const InitProvider = ({ children }: PropsWithChildren) => {
         const refreshToken = await SecureStorage.get<string>('refreshToken');
 
         if (accessToken && refreshToken) {
+          await queryClient.fetchQuery({
+            queryKey: meQueryKey,
+            queryFn: () => UserApi.me(),
+          });
           setHasAccessToken(true);
         }
       } finally {
