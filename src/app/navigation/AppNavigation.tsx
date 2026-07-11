@@ -48,7 +48,6 @@ const createAppNavigationStyles = (backgroundColor: string) =>
 export const AppNavigation = memo(() => {
   const { colors, mode } = useAppTheme();
   const { isLoading, initialRouteName } = useInit();
-  // const { initialRouteName, isBootstrapping } = useAuthFlow();
   const styles = createAppNavigationStyles(colors.screenBackground);
 
   const navigationTheme = mode === 'dark' ? DarkTheme : DefaultTheme;

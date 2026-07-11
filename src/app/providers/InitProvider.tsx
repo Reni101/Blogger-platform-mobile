@@ -2,6 +2,7 @@ import {
   createContext,
   type PropsWithChildren,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 import { SecureStorage } from '../../shared';
@@ -16,21 +17,23 @@ export const InitProvider = ({ children }: PropsWithChildren) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasAccessToken, setHasAccessToken] = useState(false);
 
-  const bootstrapAsync = async () => {
-    try {
-      const accessToken = await SecureStorage.get<string>('accessToken');
-      const refreshToken = await SecureStorage.get<string>('refreshToken');
+  useEffect(() => {
+    const bootstrapAsync = async () => {
+      try {
+        const accessToken = await SecureStorage.get<string>('accessToken');
+        const refreshToken = await SecureStorage.get<string>('refreshToken');
 
-      if (accessToken && refreshToken) {
-        setHasAccessToken(true);
+        if (accessToken && refreshToken) {
+          setHasAccessToken(true);
+        }
+      } finally {
+        setIsLoading(false);
       }
-    } catch (e) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    };
 
-  bootstrapAsync();
+    bootstrapAsync();
+  }, []);
+
   return (
     <InitContext.Provider
       value={{
