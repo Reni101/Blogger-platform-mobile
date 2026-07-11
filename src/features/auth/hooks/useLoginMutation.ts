@@ -5,8 +5,8 @@ import type { LoginBodyType } from '../api/auth-types.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';
-import { AsyncStorage, SecureStorage } from '../../../shared';
 import type { DomainException } from '../../../shared';
+import { SecureStorage } from '../../../shared';
 
 type LoginResponse = Awaited<ReturnType<typeof AuthApi.login>>;
 type LoginError = AxiosError<DomainException>;
@@ -21,7 +21,7 @@ export function useLoginMutation(
 
     onSuccess: async data => {
       await SecureStorage.set('refreshToken', data.data.refreshToken);
-      await AsyncStorage.set('accessToken', data.data.accessToken);
+      await SecureStorage.set('accessToken', data.data.accessToken);
       navigation.replace('mainTabs');
     },
     ...options,

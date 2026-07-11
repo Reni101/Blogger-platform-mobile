@@ -5,7 +5,7 @@ import axios, {
 } from 'axios';
 import { Platform } from 'react-native';
 import { API_URL2 } from '@env';
-import { AsyncStorage, notifyAuthSessionExpired, SecureStorage } from '../lib';
+import { notifyAuthSessionExpired, SecureStorage } from '../lib';
 
 type RefreshTokenResponse = {
   accessToken: string;
@@ -56,7 +56,7 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
-  const accessToken = await AsyncStorage.get<string>('accessToken');
+  const accessToken = await SecureStorage.get<string>('accessToken');
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
@@ -92,14 +92,14 @@ async function refreshAccessToken() {
     { timeout: 15_000, headers: { 'x-mobile-refresh-token': refreshToken } },
   );
 
-  await AsyncStorage.set('accessToken', data.accessToken);
+  await SecureStorage.set('accessToken', data.accessToken);
   await SecureStorage.set('refreshToken', data.refreshToken);
 
   return data.accessToken;
 }
 
 async function clearAuthTokens() {
-  await AsyncStorage.remove('accessToken');
+  await SecureStorage.remove('accessToken');
   await SecureStorage.remove('refreshToken');
   notifyAuthSessionExpired();
 }

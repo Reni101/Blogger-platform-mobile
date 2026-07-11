@@ -9,7 +9,7 @@ import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../app/navigation/AppNavigation.tsx';
-import { AsyncStorage, onAuthSessionExpired } from '../lib';
+import { onAuthSessionExpired, SecureStorage } from '../lib';
 
 type AuthGuardNavigation = NativeStackNavigationProp<
   RootStackParamList,
@@ -32,7 +32,7 @@ const AuthGuard = memo(({ children }: PropsWithChildren) => {
     let isActive = true;
 
     void (async () => {
-      const accessToken = await AsyncStorage.get<string>('accessToken');
+      const accessToken = await SecureStorage.get<string>('accessToken');
 
       if (!isActive) {
         return;

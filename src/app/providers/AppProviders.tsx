@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { initNetworkStatusListener, ThemeProvider } from '../../shared';
 import { queryClient } from './query-client';
+import { InitProvider } from './InitProvider.tsx';
 
 export function AppProviders({ children }: PropsWithChildren) {
   useEffect(() => {
@@ -13,7 +14,9 @@ export function AppProviders({ children }: PropsWithChildren) {
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <InitProvider>{children}</InitProvider>
+        </ThemeProvider>
       </SafeAreaProvider>
     </QueryClientProvider>
   );

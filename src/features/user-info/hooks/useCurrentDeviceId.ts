@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AsyncStorage, decodeJwtPayload } from '../../../shared';
+import { decodeJwtPayload, SecureStorage } from '../../../shared';
 
 type AccessTokenPayload = {
   deviceId?: string;
@@ -11,7 +11,7 @@ export function useCurrentDeviceId() {
   useEffect(() => {
     let isMounted = true;
 
-    AsyncStorage.get<string>('accessToken')
+    SecureStorage.get<string>('accessToken')
       .then(accessToken => {
         if (!isMounted || !accessToken) {
           return;

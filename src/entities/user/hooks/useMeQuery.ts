@@ -1,5 +1,5 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
-import { AsyncStorage } from '../../../shared';
+import { SecureStorage } from '../../../shared';
 import { UserApi } from '../api/user-api.ts';
 
 type MeResponse = Awaited<ReturnType<typeof UserApi.me>> | null;
@@ -12,7 +12,7 @@ export function useMeQuery(
   return useQuery<MeResponse, Error>({
     queryKey: meQueryKey,
     queryFn: async () => {
-      const accessToken = await AsyncStorage.get<string>('accessToken');
+      const accessToken = await SecureStorage.get<string>('accessToken');
       if (!accessToken) {
         return null;
       }

@@ -3,7 +3,7 @@ import { AuthApi } from '../api/auth-api.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';
-import { AsyncStorage, SecureStorage } from '../../../shared';
+import { SecureStorage } from '../../../shared';
 import { meQueryKey } from '../../../entities/user';
 
 type LogoutResponse = Awaited<ReturnType<typeof AuthApi.logOut>> | null;
@@ -20,7 +20,7 @@ export function useLogoutMutation(
       const refreshToken = await SecureStorage.get<string>('refreshToken');
 
       if (!refreshToken) {
-        await AsyncStorage.remove('accessToken');
+        await SecureStorage.remove('accessToken');
         await SecureStorage.remove('refreshToken');
         navigation.replace('login');
         return null;
@@ -31,7 +31,7 @@ export function useLogoutMutation(
     onSuccess: async (data, variables, onMutateResult, context) => {
       if (data) {
         await SecureStorage.remove('refreshToken');
-        await AsyncStorage.remove('accessToken');
+        await SecureStorage.remove('accessToken');
       }
       navigation.replace('login');
       context.client.removeQueries({ queryKey: meQueryKey });
@@ -40,7 +40,7 @@ export function useLogoutMutation(
     ...mutationOptions,
     onError: async (data, variables, onMutateResult, context) => {
       await SecureStorage.remove('refreshToken');
-      await AsyncStorage.remove('accessToken');
+      await SecureStorage.remove('accessToken');
       await onError?.(data, variables, onMutateResult, context);
     },
   });
