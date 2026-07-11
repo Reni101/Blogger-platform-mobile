@@ -13,10 +13,10 @@ import {
   LoginScreen,
   RegisterScreen,
 } from '../../screens';
-import { AuthGuardHoc, StackHeader, useAppTheme } from '../../shared';
+import { StackHeader, useAppTheme } from '../../shared';
 import { MainTabsNavigator } from './MainTabsNavigator';
 import { DevicesScreen } from '../../screens/devices-screen/ui/DevicesScreen.tsx';
-import { useAuthStore } from '../store/auth-store.ts';
+import { useAuthStore } from '../../features/auth/model/store/auth-store.ts';
 
 export type MainTabParamList = {
   blogs: undefined;
@@ -91,6 +91,7 @@ export const AppNavigation = memo(() => {
               animation: 'fade',
             }}
           />
+
           <Stack.Screen
             component={RegisterScreen}
             key={'register'}
@@ -111,32 +112,38 @@ export const AppNavigation = memo(() => {
               animation: 'slide_from_right',
             }}
           />
-          <Stack.Screen
-            component={AuthGuardHoc(MainTabsNavigator)}
-            key={'mainTabs'}
-            name={'mainTabs'}
-            options={{ headerShown: false, animation: 'fade' }}
-          />
-          <Stack.Screen
-            component={AuthGuardHoc(ConfirmationEmailScreen)}
-            key={'confirmationEmail'}
-            name={'confirmationEmail'}
-            options={{
-              title: 'Confirm email',
-              animation: 'slide_from_right',
-              header: StackHeader,
-            }}
-          />
-          <Stack.Screen
-            component={AuthGuardHoc(DevicesScreen)}
-            key={'devices'}
-            name={'devices'}
-            options={{
-              title: 'Devices',
-              animation: 'slide_from_right',
-              header: StackHeader,
-            }}
-          />
+          {isAuthorized && (
+            <Stack.Screen
+              component={MainTabsNavigator}
+              key={'mainTabs'}
+              name={'mainTabs'}
+              options={{ headerShown: false, animation: 'fade' }}
+            />
+          )}
+          {isAuthorized && (
+            <Stack.Screen
+              component={ConfirmationEmailScreen}
+              key={'confirmationEmail'}
+              name={'confirmationEmail'}
+              options={{
+                title: 'Confirm email',
+                animation: 'slide_from_right',
+                header: StackHeader,
+              }}
+            />
+          )}
+          {isAuthorized && (
+            <Stack.Screen
+              component={DevicesScreen}
+              key={'devices'}
+              name={'devices'}
+              options={{
+                title: 'Devices',
+                animation: 'slide_from_right',
+                header: StackHeader,
+              }}
+            />
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </>

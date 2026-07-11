@@ -3,18 +3,10 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { API_URL2 } from '@env';
-import { notifyAuthSessionExpired, SecureStorage } from '../lib';
-
-type RefreshTokenResponse = {
-  accessToken: string;
-  refreshToken: string;
-};
-
-type RetryableAxiosRequestConfig = InternalAxiosRequestConfig & {
-  _retry?: boolean;
-};
+import { SecureStorage } from '../lib';
+import { useAuthStore } from '../../features/auth/model/store/auth-store.ts';
 
 const ANDROID_EMULATOR_HOST = '10.0.2.2';
 
@@ -35,17 +27,17 @@ function resolveApiBaseUrl(rawBaseUrl: string) {
     .replace('://127.0.0.1', `://${ANDROID_EMULATOR_HOST}`);
 }
 
-/** Запросы, при 401 на которых refresh не выполняется. */
-const AUTH_REFRESH_SKIP_PATHS: string[] = ['/user-accaunts/login'];
+/** Запросы, при 401 на которых logout не выполняется. */
+const AUTH_LOGOUT_SKIP_PATHS: string[] = ['/user-accaunts/login'];
 
 const API_BASE_URL = resolveApiBaseUrl(API_URL2);
 
-function shouldSkipAuthRefresh(url?: string) {
+function shouldSkipAuthLogout(url?: string) {
   if (!url) {
     return false;
   }
 
-  return AUTH_REFRESH_SKIP_PATHS.some(path => url.includes(path));
+  return AUTH_LOGOUT_SKIP_PATHS.some(path => url.includes(path));
 }
 
 export const api = axios.create({
@@ -61,86 +53,20 @@ api.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
   return config;
 });
 
-let isRefreshing = false;
-let failedQueue: Array<{
-  resolve: (token: string) => void;
-  reject: (error: unknown) => void;
-}> = [];
-
-function processQueue(error: unknown, token: string | null = null) {
-  failedQueue.forEach(({ resolve, reject }) => {
-    if (error) {
-      reject(error);
-    } else if (token) {
-      resolve(token);
-    }
-  });
-  failedQueue = [];
-}
-
-async function refreshAccessToken() {
-  const refreshToken = await SecureStorage.get<string>('refreshToken');
-  if (!refreshToken) {
-    throw new Error('Refresh token is missing');
-  }
-
-  const { data } = await axios.post<RefreshTokenResponse>(
-    `${API_BASE_URL}auth/refresh-token`,
-    {},
-    { timeout: 15_000, headers: { 'x-mobile-refresh-token': refreshToken } },
-  );
-
-  await SecureStorage.set('accessToken', data.accessToken);
-  await SecureStorage.set('refreshToken', data.refreshToken);
-
-  return data.accessToken;
-}
-
-async function clearAuthTokens() {
-  await SecureStorage.remove('accessToken');
-  await SecureStorage.remove('refreshToken');
-  notifyAuthSessionExpired();
-}
-
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as
-      | RetryableAxiosRequestConfig
-      | undefined;
-
     if (
-      !originalRequest ||
-      error.response?.status !== 401 ||
-      originalRequest._retry ||
-      shouldSkipAuthRefresh(originalRequest.url)
+      error.response?.status === 401 &&
+      !shouldSkipAuthLogout(error.config?.url)
     ) {
-      return Promise.reject(error);
+      await useAuthStore.getState().logout();
+      Alert.alert(
+        'Session expired',
+        'Your session has ended. Please sign in again.',
+      );
     }
 
-    if (isRefreshing) {
-      return new Promise<string>((resolve, reject) => {
-        failedQueue.push({ resolve, reject });
-      }).then(token => {
-        originalRequest.headers.Authorization = `Bearer ${token}`;
-        return api(originalRequest);
-      });
-    }
-
-    originalRequest._retry = true;
-    isRefreshing = true;
-
-    try {
-      const newAccessToken = await refreshAccessToken();
-      processQueue(null, newAccessToken);
-      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-      return api(originalRequest);
-    } catch (refreshError) {
-      processQueue(refreshError, null);
-      await clearAuthTokens();
-      return Promise.reject(refreshError);
-    } finally {
-      isRefreshing = false;
-    }
+    return Promise.reject(error);
   },
 );

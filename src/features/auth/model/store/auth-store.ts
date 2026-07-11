@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { SecureStorage } from '../../shared';
+import { SecureStorage } from '../../../../shared';
 import { immer } from 'zustand/middleware/immer';
 
 interface AuthState {
@@ -31,7 +31,6 @@ export const useAuthStore = create<AuthState>()(
     logout: async () => {
       await SecureStorage.remove('accessToken');
       await SecureStorage.remove('refreshToken');
-
       set(state => {
         state.isAuthorized = false;
         state.accessToken = null;

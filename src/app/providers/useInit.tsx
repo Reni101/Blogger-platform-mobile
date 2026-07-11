@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { SecureStorage } from '../../shared';
 import { meQueryKey } from '../../entities/user';
-import { queryClient } from '../providers/query-client.ts';
+import { queryClient } from './query-client.ts';
 import { UserApi } from '../../entities/user/api/user-api.ts';
-import { useAuthStore } from './auth-store.ts';
+import { useAuthStore } from '../../features/auth/model/store/auth-store.ts';
 
 export const UseInit = () => {
   const setLoading = useAuthStore(state => state.setLoading);
@@ -29,6 +29,4 @@ export const UseInit = () => {
 
     bootstrapAsync();
   }, []);
-
-  return {};
 };

@@ -34,7 +34,6 @@ export const MainTabsNavigator = memo(() => {
             <HeadsetIcon color={color ?? colors.tabBarInactive} size={size} />
           ),
           title: 'Blogs',
-
         }}
       />
       <Tab.Screen
