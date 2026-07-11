@@ -16,7 +16,7 @@ import {
 import { AuthGuardHoc, StackHeader, useAppTheme } from '../../shared';
 import { MainTabsNavigator } from './MainTabsNavigator';
 import { DevicesScreen } from '../../screens/devices-screen/ui/DevicesScreen.tsx';
-import { useInit } from '../providers/InitProvider.tsx';
+import { useAuthStore } from '../store/auth-store.ts';
 
 export type MainTabParamList = {
   blogs: undefined;
@@ -47,7 +47,9 @@ const createAppNavigationStyles = (backgroundColor: string) =>
 
 export const AppNavigation = memo(() => {
   const { colors, mode } = useAppTheme();
-  const { isLoading, initialRouteName } = useInit();
+  const isLoading = useAuthStore(state => state.isLoading);
+  const isAuthorized = useAuthStore(state => state.isAuthorized);
+
   const styles = createAppNavigationStyles(colors.screenBackground);
 
   const navigationTheme = mode === 'dark' ? DarkTheme : DefaultTheme;
@@ -78,7 +80,7 @@ export const AppNavigation = memo(() => {
           },
         }}
       >
-        <Stack.Navigator initialRouteName={initialRouteName}>
+        <Stack.Navigator initialRouteName={isAuthorized ? 'mainTabs' : 'login'}>
           <Stack.Screen
             component={LoginScreen}
             key={'login'}

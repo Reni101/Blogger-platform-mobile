@@ -50,8 +50,6 @@ function shouldSkipAuthRefresh(url?: string) {
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
-  // Без таймаута зависший сервер не порождает ошибку — ставим предел,
-  // после которого axios бросит ECONNABORTED (сервер не отвечает).
   timeout: 15_000,
 });
 
