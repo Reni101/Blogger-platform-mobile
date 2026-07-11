@@ -16,7 +16,7 @@ import {
 import { StackHeader, useAppTheme } from '../../shared';
 import { MainTabsNavigator } from './MainTabsNavigator';
 import { DevicesScreen } from '../../screens/devices-screen/ui/DevicesScreen.tsx';
-import { useAuthStore } from '../../features/auth/model/store/auth-store.ts';
+import { useAuthStore } from '../../features/auth';
 
 export type MainTabParamList = {
   blogs: undefined;
@@ -88,7 +88,6 @@ export const AppNavigation = memo(() => {
             options={{
               title: 'Login',
               headerShown: false,
-              animation: 'fade',
             }}
           />
 
@@ -117,7 +116,7 @@ export const AppNavigation = memo(() => {
               component={MainTabsNavigator}
               key={'mainTabs'}
               name={'mainTabs'}
-              options={{ headerShown: false, animation: 'fade' }}
+              options={{ headerShown: false, animation: 'flip' }}
             />
           )}
           {isAuthorized && (

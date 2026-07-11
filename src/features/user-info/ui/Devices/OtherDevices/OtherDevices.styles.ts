@@ -4,8 +4,14 @@ import { type AppThemeColors } from '../../../../../shared';
 export const createOtherDevicesStyles = (colors: AppThemeColors) =>
   StyleSheet.create({
     container: {
+      flex: 1,
       gap: 8,
+      minHeight: 0,
       width: '100%',
+    },
+    list: {
+      flex: 1,
+      minHeight: 0,
     },
     sectionTitle: {
       color: colors.textPrimary,
