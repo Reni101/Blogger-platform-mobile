@@ -10,6 +10,7 @@ interface AuthState {
   login: (accessToken: string, refreshToken: string) => Promise<void>;
   logout: () => Promise<void>;
   setLoading: (value: boolean) => void;
+  setIsAuthorized: (accessToken: string, refreshToken: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -26,6 +27,13 @@ export const useAuthStore = create<AuthState>()(
         state.isAuthorized = true;
         state.accessToken = accessToken;
         state.refreshToken = refreshToken;
+      });
+    },
+    setIsAuthorized: async (accessToken, refreshToken) => {
+      set(s => {
+        s.isAuthorized = true;
+        s.accessToken = accessToken;
+        s.refreshToken = refreshToken;
       });
     },
     logout: async () => {

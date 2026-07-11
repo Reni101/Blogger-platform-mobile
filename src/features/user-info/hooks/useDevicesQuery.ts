@@ -1,6 +1,6 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
-import { SecureStorage } from '../../../shared';
 import { SecurityApi } from '../api/security-api.ts';
+import { useAuthStore } from '../../auth';
 
 type DevicesResponse = Awaited<ReturnType<typeof SecurityApi.getDevices>>;
 
@@ -12,11 +12,10 @@ export function useDevicesQuery(
     'queryKey' | 'queryFn'
   >,
 ) {
+  const refreshToken = useAuthStore(s => s.refreshToken);
   return useQuery<DevicesResponse, Error>({
     queryKey: devicesQueryKey,
     queryFn: async () => {
-      const refreshToken = await SecureStorage.get<string>('refreshToken');
-
       if (!refreshToken) {
         throw new Error('Refresh token is missing');
       }

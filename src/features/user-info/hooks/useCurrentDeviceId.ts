@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { decodeJwtPayload, SecureStorage } from '../../../shared';
+import { decodeJwtPayload } from '../../../shared';
+import { useAuthStore } from '../../auth';
 
 type AccessTokenPayload = {
   deviceId?: string;
@@ -7,22 +8,17 @@ type AccessTokenPayload = {
 
 export function useCurrentDeviceId() {
   const [deviceId, setDeviceId] = useState<string | null>(null);
+  const accessToken = useAuthStore(s => s.accessToken);
 
   useEffect(() => {
     let isMounted = true;
 
-    SecureStorage.get<string>('accessToken')
-      .then(accessToken => {
-        if (!isMounted || !accessToken) {
-          return;
-        }
+    if (!isMounted || !accessToken) {
+      return;
+    }
 
-        const payload = decodeJwtPayload<AccessTokenPayload>(accessToken);
-        setDeviceId(payload?.deviceId ?? null);
-      })
-      .catch(() => {
-        // Ignore storage read errors.
-      });
+    const payload = decodeJwtPayload<AccessTokenPayload>(accessToken);
+    setDeviceId(payload?.deviceId ?? null);
 
     return () => {
       isMounted = false;

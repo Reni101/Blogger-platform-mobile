@@ -3,11 +3,11 @@ import { SecureStorage } from '../../shared';
 import { meQueryKey } from '../../entities/user';
 import { queryClient } from './query-client.ts';
 import { UserApi } from '../../entities/user/api/user-api.ts';
-import { useAuthStore } from '../../features/auth/model/store/auth-store.ts';
+import { useAuthStore } from '../../features/auth';
 
 export const UseInit = () => {
   const setLoading = useAuthStore(state => state.setLoading);
-  const login = useAuthStore(state => state.login);
+  const setIsAuthorized = useAuthStore(state => state.setIsAuthorized);
 
   useEffect(() => {
     const bootstrapAsync = async () => {
@@ -20,7 +20,7 @@ export const UseInit = () => {
             queryKey: meQueryKey,
             queryFn: () => UserApi.me(),
           });
-          await login(accessToken, refreshToken);
+          setIsAuthorized(accessToken, accessToken);
         }
       } finally {
         setLoading(false);

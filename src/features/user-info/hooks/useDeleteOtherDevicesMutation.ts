@@ -1,11 +1,11 @@
 import {
   useMutation,
-  useQueryClient,
   type UseMutationOptions,
+  useQueryClient,
 } from '@tanstack/react-query';
-import { SecureStorage } from '../../../shared';
 import { SecurityApi } from '../api/security-api.ts';
 import { devicesQueryKey } from './useDevicesQuery.ts';
+import { useAuthStore } from '../../auth';
 
 type DeleteOtherDevicesResponse = Awaited<
   ReturnType<typeof SecurityApi.deleteOtherDevices>
@@ -16,11 +16,10 @@ export function useDeleteOtherDevicesMutation(
 ) {
   const queryClient = useQueryClient();
   const { onSuccess, ...mutationOptions } = options ?? {};
+  const refreshToken = useAuthStore(s => s.refreshToken);
 
   return useMutation<DeleteOtherDevicesResponse, Error, void>({
     mutationFn: async () => {
-      const refreshToken = await SecureStorage.get<string>('refreshToken');
-
       if (!refreshToken) {
         throw new Error('Refresh token is missing');
       }

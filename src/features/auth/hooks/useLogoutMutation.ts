@@ -3,9 +3,9 @@ import { AuthApi } from '../api/auth-api.ts';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../../app/navigation/AppNavigation.tsx';
-import { SecureStorage } from '../../../shared';
 import { meQueryKey } from '../../../entities/user';
 import { useAuthStore } from '../model/store/auth-store.ts';
+import { devicesQueryKey } from '../../user-info';
 
 type LogoutResponse = Awaited<ReturnType<typeof AuthApi.logOut>> | null;
 type LoginNavigation = NativeStackNavigationProp<RootStackParamList, 'login'>;
@@ -16,11 +16,10 @@ export function useLogoutMutation(
   const navigation = useNavigation<LoginNavigation>();
   const logout = useAuthStore(s => s.logout);
   const { onSuccess, onError, ...mutationOptions } = options ?? {};
+  const refreshToken = useAuthStore(s => s.refreshToken);
 
   return useMutation<LogoutResponse, Error, void>({
     mutationFn: async () => {
-      const refreshToken = await SecureStorage.get<string>('refreshToken');
-
       if (!refreshToken) {
         await logout();
         navigation.replace('login');
@@ -31,14 +30,14 @@ export function useLogoutMutation(
     },
     onSuccess: async (data, variables, onMutateResult, context) => {
       await logout();
-      navigation.replace('login');
       context.client.removeQueries({ queryKey: meQueryKey });
+      context.client.removeQueries({ queryKey: devicesQueryKey });
+      navigation.replace('login');
       await onSuccess?.(data, variables, onMutateResult, context);
     },
     ...mutationOptions,
     onError: async (data, variables, onMutateResult, context) => {
-      await SecureStorage.remove('refreshToken');
-      await SecureStorage.remove('accessToken');
+      await logout();
       await onError?.(data, variables, onMutateResult, context);
     },
   });
