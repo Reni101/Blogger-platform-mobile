@@ -8,10 +8,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useAppTheme } from '../../hooks';
-import {
-  SWITCH_THUMB_TRAVEL,
-  switchStyles,
-} from './Switch.styles.ts';
+import { SWITCH_THUMB_TRAVEL, switchStyles } from './Switch.styles.ts';
 
 const ANIMATION_DURATION = 200;
 

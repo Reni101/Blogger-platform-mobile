@@ -1,15 +1,22 @@
 import { memo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { MainTabParamList } from './AppNavigation';
 import { BlogsScreen, ProfileScreen, QuizGameScreen } from '../../screens';
 import { GameIcon, HeadsetIcon, useAppTheme, UserPen } from '../../shared';
 import { useMeQuery } from '../../entities/user';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
+const TAB_BAR_HEIGHT = 56;
+const TAB_BAR_EXTRA_BOTTOM = 8;
 
 export const MainTabsNavigator = memo(() => {
   const { colors } = useAppTheme();
+  const insets = useSafeAreaInsets();
   useMeQuery();
+
+  const tabBarBottomInset = insets.bottom + TAB_BAR_EXTRA_BOTTOM;
+
   return (
     <Tab.Navigator
       initialRouteName="blogs"
@@ -23,6 +30,8 @@ export const MainTabsNavigator = memo(() => {
         tabBarStyle: {
           backgroundColor: colors.tabBarBackground,
           borderTopColor: colors.cardBorder,
+          height: TAB_BAR_HEIGHT + tabBarBottomInset,
+          paddingBottom: tabBarBottomInset,
         },
       }}
     >

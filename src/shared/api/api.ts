@@ -4,9 +4,9 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import { Alert, Platform } from 'react-native';
-import { API_URL2 } from '@env';
+import { API_URL, API_URL_LOCAL } from '@env';
 import { SecureStorage } from '../lib';
-import { useAuthStore } from '../../features/auth/model/store/auth-store.ts';
+import { useAuthStore } from '../../features/auth';
 
 const ANDROID_EMULATOR_HOST = '10.0.2.2';
 
@@ -14,7 +14,7 @@ function resolveApiBaseUrl(rawBaseUrl: string) {
   const trimmedBaseUrl = rawBaseUrl.trim();
 
   if (!trimmedBaseUrl) {
-    throw new Error('API_URL2 is empty');
+    throw new Error('API base URL is empty');
   }
 
   if (Platform.OS !== 'android') {
@@ -30,7 +30,7 @@ function resolveApiBaseUrl(rawBaseUrl: string) {
 /** Запросы, при 401 на которых logout не выполняется. */
 const AUTH_LOGOUT_SKIP_PATHS: string[] = ['/user-accaunts/login'];
 
-const API_BASE_URL = resolveApiBaseUrl(API_URL2);
+const API_BASE_URL = resolveApiBaseUrl(__DEV__ ? API_URL_LOCAL : API_URL);
 
 function shouldSkipAuthLogout(url?: string) {
   if (!url) {

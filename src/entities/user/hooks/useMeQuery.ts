@@ -3,7 +3,6 @@ import { UserApi } from '../api/user-api.ts';
 import { useAuthStore } from '../../../features/auth';
 
 type MeResponse = Awaited<ReturnType<typeof UserApi.me>> | null;
-
 export const meQueryKey = ['auth', 'me'] as const;
 
 export function useMeQuery(

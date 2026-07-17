@@ -7,6 +7,7 @@ interface AuthState {
   isLoading: boolean;
   accessToken: string | null;
   refreshToken: string | null;
+
   login: (accessToken: string, refreshToken: string) => Promise<void>;
   logout: () => Promise<void>;
   setLoading: (value: boolean) => void;

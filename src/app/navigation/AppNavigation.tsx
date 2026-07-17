@@ -17,6 +17,7 @@ import { StackHeader, useAppTheme } from '../../shared';
 import { MainTabsNavigator } from './MainTabsNavigator';
 import { DevicesScreen } from '../../screens/devices-screen/ui/DevicesScreen.tsx';
 import { useAuthStore } from '../../features/auth';
+import { useMeQuery } from '../../entities/user';
 
 export type MainTabParamList = {
   blogs: undefined;
@@ -47,6 +48,8 @@ const createAppNavigationStyles = (backgroundColor: string) =>
 
 export const AppNavigation = memo(() => {
   const { colors, mode } = useAppTheme();
+  const { data } = useMeQuery();
+
   const isLoading = useAuthStore(state => state.isLoading);
   const isAuthorized = useAuthStore(state => state.isAuthorized);
 
@@ -119,7 +122,7 @@ export const AppNavigation = memo(() => {
               options={{ headerShown: false, animation: 'flip' }}
             />
           )}
-          {isAuthorized && (
+          {isAuthorized && !data?.data.isEmailConfirm && (
             <Stack.Screen
               component={ConfirmationEmailScreen}
               key={'confirmationEmail'}
