@@ -13,7 +13,9 @@ export type ProfileWidgetRowItem = {
     | 'change-password'
     | 'devices'
     | 'change-email'
+    | 'change-avatar'
     | 'email-conformation';
+
   actionElement: ReactElement;
 };
 
@@ -26,10 +28,7 @@ type ProfileWidgetRowProps = {
   rowStyle: StyleProp<ViewStyle>;
 };
 
-const ProfileWidgetRow = memo(({
-  item,
-  rowStyle,
-}: ProfileWidgetRowProps) => {
+const ProfileWidgetRow = memo(({ item, rowStyle }: ProfileWidgetRowProps) => {
   return <View style={rowStyle}>{item.actionElement}</View>;
 });
 

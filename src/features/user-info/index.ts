@@ -5,3 +5,4 @@ export { OtherDevices } from './ui/Devices/OtherDevices/OtherDevices.tsx';
 export { splitDevices } from './lib/split-devices.ts';
 export { useDevicesQuery, devicesQueryKey } from './hooks/useDevicesQuery.ts';
 export type { DevicesQueryData } from './hooks/useDevicesQuery.ts';
+export { UserAvatarAction } from './ui/UserAvatar/UserAvatarAction.tsx';

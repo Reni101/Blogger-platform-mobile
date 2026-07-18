@@ -15,3 +15,4 @@ export { AndroidIcon } from './android-icon.tsx';
 export { BrowserIcon } from './browser-icon.tsx';
 export { TabletSmartphoneIcon } from './tablet-smartphone-icon.tsx';
 export { TriangleAlertIcon } from './triangle-alert-icon.tsx';
+export { CameraIcon } from './camera-icon.tsx';
