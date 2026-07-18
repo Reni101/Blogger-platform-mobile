@@ -20,7 +20,7 @@ export const UseInit = () => {
             queryKey: meQueryKey,
             queryFn: () => UserApi.me(),
           });
-          setIsAuthorized(accessToken, accessToken);
+          await setIsAuthorized(accessToken, refreshToken);
         }
       } finally {
         setLoading(false);

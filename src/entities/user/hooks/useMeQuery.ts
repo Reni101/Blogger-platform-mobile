@@ -11,12 +11,8 @@ export function useMeQuery(
   const accessToken = useAuthStore(s => s.accessToken);
   return useQuery<MeResponse, Error>({
     queryKey: meQueryKey,
-    queryFn: async () => {
-      if (!accessToken) {
-        return null;
-      }
-      return UserApi.me();
-    },
+    queryFn: () => UserApi.me(),
+    enabled: !!accessToken,
     ...options,
   });
 }
