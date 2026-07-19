@@ -3,11 +3,13 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react';
 import {
   Modal as RNModal,
+  Platform,
   Pressable,
   type StyleProp,
   useWindowDimensions,
@@ -51,6 +53,8 @@ export type BottomSheetProps = {
   defaultVisible?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
+  /** Fires after the sheet is fully dismissed (safe to present another native modal). */
+  onDismissed?: () => void;
   closeOnBackdropPress?: boolean;
   enablePanToClose?: boolean;
   closeThreshold?: number;
@@ -69,6 +73,7 @@ export const BottomSheet = memo(
     defaultVisible = false,
     onOpen,
     onClose,
+    onDismissed,
     closeOnBackdropPress = true,
     enablePanToClose = true,
     closeThreshold = DEFAULT_CLOSE_THRESHOLD,
@@ -86,9 +91,31 @@ export const BottomSheet = memo(
     const resolvedVisible = isControlled ? isVisible : internalVisible;
     const [isMounted, setIsMounted] = useState(resolvedVisible);
     const resolvedMaxHeight = maxHeight ?? Math.round(screenHeight * 0.85);
+    const onDismissedRef = useRef(onDismissed);
+    const hasNotifiedDismissRef = useRef(false);
+    onDismissedRef.current = onDismissed;
 
     const sheetHeight = useSharedValue(0);
     const openProgress = useSharedValue(resolvedVisible ? 1 : 0);
+
+    const notifyDismissed = useCallback(() => {
+      if (hasNotifiedDismissRef.current) {
+        return;
+      }
+      hasNotifiedDismissRef.current = true;
+      onDismissedRef.current?.();
+    }, []);
+
+    const handleCloseAnimationEnd = useCallback(() => {
+      setIsMounted(false);
+      // Prefer Modal.onDismiss on iOS; longer fallback covers transparent
+      // modals where onDismiss may not fire. Android has no onDismiss.
+      if (Platform.OS === 'ios') {
+        setTimeout(notifyDismissed, 400);
+      } else {
+        notifyDismissed();
+      }
+    }, [notifyDismissed]);
 
     const open = useCallback(() => {
       if (!isControlled) {
@@ -106,6 +133,7 @@ export const BottomSheet = memo(
 
     useEffect(() => {
       if (resolvedVisible) {
+        hasNotifiedDismissRef.current = false;
         setIsMounted(true);
         openProgress.set(
           withTiming(1, {
@@ -129,12 +157,18 @@ export const BottomSheet = memo(
           },
           finished => {
             if (finished) {
-              scheduleOnRN(setIsMounted, false);
+              scheduleOnRN(handleCloseAnimationEnd);
             }
           },
         ),
       );
-    }, [animationDuration, isMounted, openProgress, resolvedVisible]);
+    }, [
+      animationDuration,
+      handleCloseAnimationEnd,
+      isMounted,
+      openProgress,
+      resolvedVisible,
+    ]);
 
     const controls = useMemo<BottomSheetControls>(
       () => ({
@@ -209,6 +243,7 @@ export const BottomSheet = memo(
         {triggerNode}
         <RNModal
           animationType="none"
+          onDismiss={notifyDismissed}
           onRequestClose={close}
           statusBarTranslucent
           transparent
