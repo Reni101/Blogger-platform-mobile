@@ -28,7 +28,7 @@ function resolveApiBaseUrl(rawBaseUrl: string) {
 }
 
 /** Запросы, при 401 на которых logout не выполняется. */
-const AUTH_LOGOUT_SKIP_PATHS: string[] = ['/user-accaunts/login'];
+const AUTH_LOGOUT_SKIP_PATHS: string[] = ['/auth/login'];
 
 const API_BASE_URL = resolveApiBaseUrl(__DEV__ ? API_URL_LOCAL : API_URL);
 
