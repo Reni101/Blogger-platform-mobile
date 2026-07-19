@@ -7,7 +7,10 @@ import {
   useThemedStyles,
 } from '../../../../shared';
 import { createUserAvatarActionStyles } from './UserAvatar.styles.ts';
-import { UserAvatarSelect } from './UserAvatarSelect.tsx';
+import {
+  pickAvatarFromCamera,
+  pickAvatarFromLibrary,
+} from '../../lib/pick-avatar-image.ts';
 
 export const UserAvatarAction = () => {
   const styles = useThemedStyles(createUserAvatarActionStyles);
@@ -40,7 +43,50 @@ export const UserAvatarAction = () => {
           setIsSheetVisible(false);
         }}
       >
-        {props => <UserAvatarSelect {...props} />}
+        {({ close }) => (
+          <View style={styles.sheetContent}>
+            <Text style={styles.sheetTitle}>Change avatar</Text>
+
+            <Pressable
+              onPress={() => {
+                close();
+                void pickAvatarFromCamera();
+              }}
+              style={({ pressed }) => [
+                styles.sheetAction,
+                pressed ? styles.sheetActionPressed : null,
+              ]}
+            >
+              <Text style={styles.sheetActionText}>Take photo</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={() => {
+                close();
+                void pickAvatarFromLibrary();
+              }}
+              style={({ pressed }) => [
+                styles.sheetAction,
+                pressed ? styles.sheetActionPressed : null,
+              ]}
+            >
+              <Text style={styles.sheetActionText}>Choose from library</Text>
+            </Pressable>
+
+            <Pressable
+              onPress={close}
+              style={({ pressed }) => [
+                styles.sheetAction,
+                styles.dismissAction,
+                pressed ? styles.sheetActionPressed : null,
+              ]}
+            >
+              <Text style={[styles.sheetActionText, styles.dismissActionText]}>
+                Dismiss
+              </Text>
+            </Pressable>
+          </View>
+        )}
       </BottomSheet>
     </>
   );
