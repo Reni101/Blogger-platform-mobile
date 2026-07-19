@@ -5,6 +5,7 @@ import { initNetworkStatusListener } from '../../shared';
 import { queryClient } from './query-client';
 import { UseInit } from './useInit.tsx';
 import { ThemeProvider } from './ThemeProvider.tsx';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export function AppProviders({ children }: PropsWithChildren) {
   UseInit();
@@ -13,10 +14,12 @@ export function AppProviders({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <SafeAreaProvider>
-        <ThemeProvider>{children}</ThemeProvider>
-      </SafeAreaProvider>
-    </QueryClientProvider>
+    <GestureHandlerRootView>
+      <QueryClientProvider client={queryClient}>
+        <SafeAreaProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </SafeAreaProvider>
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   );
 }
