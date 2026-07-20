@@ -202,8 +202,8 @@ export const BottomSheet = memo(
           return;
         }
 
-        const height = Math.max(sheetHeight.get(), 1);
-        const nextProgress = 1 - event.translationY / height;
+        const travel = Math.max(screenHeightValue.get(), 1);
+        const nextProgress = 1 - event.translationY / travel;
         openProgress.set(Math.max(0, Math.min(1, nextProgress)));
       },
       onDeactivate: event => {
