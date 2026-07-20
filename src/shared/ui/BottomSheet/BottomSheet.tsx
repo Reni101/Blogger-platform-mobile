@@ -96,7 +96,12 @@ export const BottomSheet = memo(
     onDismissedRef.current = onDismissed;
 
     const sheetHeight = useSharedValue(0);
+    const screenHeightValue = useSharedValue(screenHeight);
     const openProgress = useSharedValue(resolvedVisible ? 1 : 0);
+
+    useEffect(() => {
+      screenHeightValue.set(screenHeight);
+    }, [screenHeight, screenHeightValue]);
 
     const notifyDismissed = useCallback(() => {
       if (hasNotifiedDismissRef.current) {
@@ -134,13 +139,24 @@ export const BottomSheet = memo(
     useEffect(() => {
       if (resolvedVisible) {
         hasNotifiedDismissRef.current = false;
+        openProgress.set(0);
         setIsMounted(true);
-        openProgress.set(
-          withTiming(1, {
-            duration: animationDuration,
-            easing: Easing.out(Easing.cubic),
-          }),
-        );
+
+        const startOpenAnimation = () => {
+          openProgress.set(
+            withTiming(1, {
+              duration: animationDuration,
+              easing: Easing.out(Easing.cubic),
+            }),
+          );
+        };
+
+        // Wait one frame so Modal paints the sheet off-screen before animating.
+        if (Platform.OS === 'android') {
+          requestAnimationFrame(startOpenAnimation);
+        } else {
+          startOpenAnimation();
+        }
         return;
       }
 
@@ -220,7 +236,7 @@ export const BottomSheet = memo(
           translateY: interpolate(
             openProgress.get(),
             [0, 1],
-            [Math.max(sheetHeight.get(), 1), 0],
+            [screenHeightValue.get(), 0],
           ),
         },
       ],
@@ -263,7 +279,10 @@ export const BottomSheet = memo(
             <GestureDetector gesture={panGesture}>
               <Animated.View
                 onLayout={event => {
-                  sheetHeight.set(event.nativeEvent.layout.height);
+                  const { height } = event.nativeEvent.layout;
+                  if (sheetHeight.get() !== height) {
+                    sheetHeight.set(height);
+                  }
                 }}
                 style={[
                   styles.sheet,
