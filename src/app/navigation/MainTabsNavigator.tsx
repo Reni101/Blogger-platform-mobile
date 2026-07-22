@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { MainTabParamList } from './AppNavigation';
-import { BlogsScreen, ProfileScreen, QuizGameScreen } from '../../screens';
+import { BlogsScreen, ProfileScreenAsync, QuizGameScreen } from '../../screens';
 import { GameIcon, HeadsetIcon, useAppTheme, UserPen } from '../../shared';
 import { useMeQuery } from '../../entities/user';
 
@@ -32,6 +32,7 @@ export const MainTabsNavigator = memo(() => {
           borderTopColor: colors.cardBorder,
           height: TAB_BAR_HEIGHT + tabBarBottomInset,
           paddingBottom: tabBarBottomInset,
+          paddingTop: 8,
         },
       }}
     >
@@ -56,7 +57,7 @@ export const MainTabsNavigator = memo(() => {
         }}
       />
       <Tab.Screen
-        component={ProfileScreen}
+        component={ProfileScreenAsync}
         name={'profile'}
         options={{
           tabBarIcon: ({ color, size }) => (

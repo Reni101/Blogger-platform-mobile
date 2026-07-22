@@ -4,7 +4,7 @@ import { createProfileScreenStyles } from './ProfileScreen.styles';
 import { ProfileWidget } from '../../../widgets/ProfileWidget';
 import { useThemedStyles } from '../../../shared';
 
-export const ProfileScreen = memo(() => {
+const ProfileScreen = memo(() => {
   const styles = useThemedStyles(createProfileScreenStyles);
 
   return (
@@ -13,3 +13,4 @@ export const ProfileScreen = memo(() => {
     </View>
   );
 });
+export default ProfileScreen;
