@@ -116,7 +116,7 @@ export const BottomSheet = memo(
       // Prefer Modal.onDismiss on iOS; longer fallback covers transparent
       // modals where onDismiss may not fire. Android has no onDismiss.
       if (Platform.OS === 'ios') {
-        setTimeout(notifyDismissed, 400);
+        setTimeout(notifyDismissed, 0);
       } else {
         notifyDismissed();
       }
