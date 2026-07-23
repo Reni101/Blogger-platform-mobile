@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { BottomSheet, useThemedStyles } from '../../../../shared';
 import {
@@ -18,15 +18,20 @@ export const UserAvatarSelect = (props: UserAvatarSelectProps) => {
   const { isVisible, onClose } = props;
   const styles = useThemedStyles(createUserAvatarSelectStyles);
   const pendingPickerRef = useRef<PendingPicker | null>(null);
+  const [isOpeningPicker, setIsOpeningPicker] = useState(false);
 
   const openPickerAfterDismiss = (picker: PendingPicker) => {
+    // Skip sheet close animation so the native picker can present as soon as
+    // the RN Modal is torn down (iOS cannot stack presenters cleanly).
     pendingPickerRef.current = picker;
+    setIsOpeningPicker(true);
     onClose();
   };
 
   const handleSheetDismissed = () => {
     const picker = pendingPickerRef.current;
     pendingPickerRef.current = null;
+    setIsOpeningPicker(false);
 
     if (picker === 'camera') {
       void pickAvatarFromCamera();
@@ -40,6 +45,7 @@ export const UserAvatarSelect = (props: UserAvatarSelectProps) => {
 
   return (
     <BottomSheet
+      animationDuration={isOpeningPicker ? 0 : undefined}
       isVisible={isVisible}
       onClose={onClose}
       onDismissed={handleSheetDismissed}
