@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Alert, Pressable, Text, View } from 'react-native';
 import { BottomSheet, useThemedStyles } from '../../../../shared';
+import { useUploadAvatarMutation } from '../../hooks/useUploadAvatarMutation.ts';
 import {
   pickAvatarFromCamera,
   pickAvatarFromLibrary,
@@ -19,6 +20,11 @@ export const UserAvatarSelect = (props: UserAvatarSelectProps) => {
   const styles = useThemedStyles(createUserAvatarSelectStyles);
   const pendingPickerRef = useRef<PendingPicker | null>(null);
   const [isOpeningPicker, setIsOpeningPicker] = useState(false);
+  const { mutate: uploadAvatar, isPending } = useUploadAvatarMutation({
+    onError: () => {
+      Alert.alert('Unable to upload avatar', 'Please try again.');
+    },
+  });
 
   const openPickerAfterDismiss = (picker: PendingPicker) => {
     // Skip sheet close animation so the native picker can present as soon as
@@ -28,18 +34,24 @@ export const UserAvatarSelect = (props: UserAvatarSelectProps) => {
     onClose();
   };
 
-  const handleSheetDismissed = () => {
+  const handleSheetDismissed = async () => {
     const picker = pendingPickerRef.current;
     pendingPickerRef.current = null;
     setIsOpeningPicker(false);
 
     if (picker === 'camera') {
-      void pickAvatarFromCamera();
+      const asset = await pickAvatarFromCamera();
+      if (asset) {
+        uploadAvatar(asset);
+      }
       return;
     }
 
     if (picker === 'library') {
-      void pickAvatarFromLibrary();
+      const asset = await pickAvatarFromLibrary();
+      if (asset) {
+        uploadAvatar(asset);
+      }
     }
   };
 
@@ -55,6 +67,7 @@ export const UserAvatarSelect = (props: UserAvatarSelectProps) => {
           <Text style={styles.sheetTitle}>Change avatar</Text>
 
           <Pressable
+            disabled={isPending}
             onPress={() => {
               openPickerAfterDismiss('camera');
             }}
@@ -67,6 +80,7 @@ export const UserAvatarSelect = (props: UserAvatarSelectProps) => {
           </Pressable>
 
           <Pressable
+            disabled={isPending}
             onPress={() => {
               openPickerAfterDismiss('library');
             }}

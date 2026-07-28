@@ -16,16 +16,13 @@ React Native-приложение (bare workflow, React Native 0.86).
 Проект использует `react-native-dotenv`. Перед сборкой создайте файл `.env` в корне репозитория (файл в `.gitignore`, в репозиторий не коммитится):
 
 ```env
-API_URL2=https://your-production-api.example.com
-LOGIN=
-PASSWORD=
+API_URL=https://your-production-api.example.com
 ```
 
-| Переменная   | Обязательна | Описание              |
-|--------------|-------------|-----------------------|
-| `API_URL2`   | Да          | Базовый URL API       |
-| `LOGIN`      | Нет         | Тестовый логин (dev)  |
-| `PASSWORD`   | Нет         | Тестовый пароль (dev) |
+| Переменная  | Обязательна | Описание              |
+|-------------|-------------|-----------------------|
+| `API_URL`   | Да          | Базовый URL API       |
+
 
 > Для production используйте production-URL в `.env`. Значения из `.env` вшиваются в JS-бандл на этапе сборки.
 

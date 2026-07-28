@@ -4,7 +4,7 @@ import axios, {
   InternalAxiosRequestConfig,
 } from 'axios';
 import { Alert, Platform } from 'react-native';
-import { API_URL, API_URL_LOCAL } from '@env';
+import { API_URL } from '@env';
 import { SecureStorage } from '../lib';
 import { useAuthStore } from '../../features/auth';
 
@@ -30,7 +30,7 @@ function resolveApiBaseUrl(rawBaseUrl: string) {
 /** Запросы, при 401 на которых logout не выполняется. */
 const AUTH_LOGOUT_SKIP_PATHS: string[] = ['/auth/login'];
 
-const API_BASE_URL = resolveApiBaseUrl(__DEV__ ? API_URL_LOCAL : API_URL);
+const API_BASE_URL = resolveApiBaseUrl(__DEV__ ? 'http://localhost:3001/api' : API_URL);
 
 function shouldSkipAuthLogout(url?: string) {
   if (!url) {
