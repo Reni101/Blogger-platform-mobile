@@ -8,3 +8,4 @@ export {
   initNetworkStatusListener,
   getIsDeviceOnline,
 } from './network-status.ts';
+export {} from './array-buffer-to-base64.ts';
