@@ -8,7 +8,7 @@ import { createUserInfoStyles } from './UserInfro.styles.ts';
 export const UserInfo = memo(() => {
   const styles = useThemedStyles(createUserInfoStyles);
   const { data } = useMeQuery();
-  const { data: avatar, isPending: isAvatarPending, } = useAvatarQuery();
+  const { data: avatar, isFetching: isAvatarFetching } = useAvatarQuery();
 
   const login = data?.data.login ?? 'user login';
   const email = data?.data.email ?? 'user@email.com';
@@ -16,7 +16,7 @@ export const UserInfo = memo(() => {
   return (
     <View style={styles.container}>
       <View style={styles.avatarPlaceholder}>
-        {isAvatarPending ? (
+        {isAvatarFetching ? (
           <Spinner size="small" />
         ) : avatar?.uri ? (
           <Image
