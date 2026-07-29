@@ -6,6 +6,7 @@ import type { RootStackParamList } from '../../../app/navigation/AppNavigation.t
 import { meQueryKey } from '../../../entities/user';
 import { useAuthStore } from '../model/store/auth-store.ts';
 import { devicesQueryKey } from '../../user-info';
+import { avatarQueryKey } from '../../user-info/hooks/useAvatarQuery.ts';
 
 type LogoutResponse = Awaited<ReturnType<typeof AuthApi.logOut>> | null;
 type LoginNavigation = NativeStackNavigationProp<RootStackParamList, 'login'>;
@@ -32,6 +33,7 @@ export function useLogoutMutation(
       await logout();
       context.client.removeQueries({ queryKey: meQueryKey });
       context.client.removeQueries({ queryKey: devicesQueryKey });
+      context.client.removeQueries({ queryKey: avatarQueryKey });
       navigation.replace('login');
       await onSuccess?.(data, variables, onMutateResult, context);
     },

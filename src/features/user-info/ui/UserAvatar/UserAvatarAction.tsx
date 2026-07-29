@@ -2,16 +2,19 @@ import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import {
   CameraIcon,
+  Spinner,
   useAppTheme,
   useThemedStyles,
 } from '../../../../shared';
 import { createUserAvatarActionStyles } from './UserAvatar.styles.ts';
 import { UserAvatarSelect } from './UserAvatarSelect.tsx';
+import { useUploadAvatarMutation } from '../../hooks/useUploadAvatarMutation.ts';
 
 export const UserAvatarAction = () => {
   const styles = useThemedStyles(createUserAvatarActionStyles);
   const { colors } = useAppTheme();
   const [isSheetVisible, setIsSheetVisible] = useState(false);
+  const { isPending } = useUploadAvatarMutation({});
 
   return (
     <>
@@ -19,6 +22,7 @@ export const UserAvatarAction = () => {
         accessibilityLabel="Change avatar"
         accessibilityRole="button"
         hitSlop={8}
+        disabled={isPending}
         onPress={() => {
           setIsSheetVisible(true);
         }}
@@ -29,7 +33,11 @@ export const UserAvatarAction = () => {
       >
         <Text style={styles.label}>Change avatar</Text>
         <View pointerEvents="none" style={styles.iconButton}>
-          <CameraIcon color={colors.iconPrimary} size={20} strokeWidth={2} />
+          {isPending ? (
+            <Spinner size={'small'} />
+          ) : (
+            <CameraIcon color={colors.iconPrimary} size={20} strokeWidth={2} />
+          )}
         </View>
       </Pressable>
 

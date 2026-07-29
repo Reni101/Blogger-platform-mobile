@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Alert, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { BottomSheet, useThemedStyles } from '../../../../shared';
 import { useUploadAvatarMutation } from '../../hooks/useUploadAvatarMutation.ts';
 import {
@@ -7,6 +7,7 @@ import {
   pickAvatarFromLibrary,
 } from '../../lib/pick-avatar-image.ts';
 import { createUserAvatarSelectStyles } from './UserAvatarSelect.styles.ts';
+import Toast from 'react-native-toast-message';
 
 type PendingPicker = 'camera' | 'library';
 
@@ -20,10 +21,18 @@ export const UserAvatarSelect = (props: UserAvatarSelectProps) => {
   const styles = useThemedStyles(createUserAvatarSelectStyles);
   const pendingPickerRef = useRef<PendingPicker | null>(null);
   const [isOpeningPicker, setIsOpeningPicker] = useState(false);
+
+  const showToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: 'Unable to upload avatar',
+      text2: 'Please try again.',
+      topOffset: 70,
+    });
+  };
+
   const { mutate: uploadAvatar, isPending } = useUploadAvatarMutation({
-    onError: () => {
-      Alert.alert('Unable to upload avatar', 'Please try again.');
-    },
+    onError: showToast,
   });
 
   const openPickerAfterDismiss = (picker: PendingPicker) => {
