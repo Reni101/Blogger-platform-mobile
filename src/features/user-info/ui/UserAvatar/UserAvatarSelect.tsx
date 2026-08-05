@@ -1,39 +1,28 @@
 import { useRef, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { BottomSheet, useThemedStyles } from '../../../../shared';
-import { useUploadAvatarMutation } from '../../hooks/useUploadAvatarMutation.ts';
 import {
   pickAvatarFromCamera,
   pickAvatarFromLibrary,
 } from '../../lib/pick-avatar-image.ts';
 import { createUserAvatarSelectStyles } from './UserAvatarSelect.styles.ts';
-import Toast from 'react-native-toast-message';
+import { Asset } from 'react-native-image-picker';
 
 type PendingPicker = 'camera' | 'library';
 
 type UserAvatarSelectProps = {
   isVisible: boolean;
   onClose: () => void;
+
+  uploadAvatar: (asset: Asset) => void;
+  isPending: boolean;
 };
 
 export const UserAvatarSelect = (props: UserAvatarSelectProps) => {
-  const { isVisible, onClose } = props;
+  const { isVisible, onClose, uploadAvatar, isPending } = props;
   const styles = useThemedStyles(createUserAvatarSelectStyles);
   const pendingPickerRef = useRef<PendingPicker | null>(null);
   const [isOpeningPicker, setIsOpeningPicker] = useState(false);
-
-  const showToast = () => {
-    Toast.show({
-      type: 'error',
-      text1: 'Unable to upload avatar',
-      text2: 'Please try again.',
-      topOffset: 70,
-    });
-  };
-
-  const { mutate: uploadAvatar, isPending } = useUploadAvatarMutation({
-    onError: showToast,
-  });
 
   const openPickerAfterDismiss = (picker: PendingPicker) => {
     // Skip sheet close animation so the native picker can present as soon as

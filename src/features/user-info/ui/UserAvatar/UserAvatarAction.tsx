@@ -9,12 +9,24 @@ import {
 import { createUserAvatarActionStyles } from './UserAvatar.styles.ts';
 import { UserAvatarSelect } from './UserAvatarSelect.tsx';
 import { useUploadAvatarMutation } from '../../hooks/useUploadAvatarMutation.ts';
+import Toast from 'react-native-toast-message';
 
 export const UserAvatarAction = () => {
   const styles = useThemedStyles(createUserAvatarActionStyles);
   const { colors } = useAppTheme();
   const [isSheetVisible, setIsSheetVisible] = useState(false);
-  const { isPending } = useUploadAvatarMutation({});
+  const showToast = () => {
+    Toast.show({
+      type: 'error',
+      text1: 'Unable to upload avatar',
+      text2: 'Please try again.',
+      topOffset: 70,
+    });
+  };
+
+  const { mutate: uploadAvatar, isPending } = useUploadAvatarMutation({
+    onError: showToast,
+  });
 
   return (
     <>
@@ -42,6 +54,8 @@ export const UserAvatarAction = () => {
       </Pressable>
 
       <UserAvatarSelect
+        uploadAvatar={uploadAvatar}
+        isPending={isPending}
         isVisible={isSheetVisible}
         onClose={() => {
           setIsSheetVisible(false);
